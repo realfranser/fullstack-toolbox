@@ -1,14 +1,18 @@
 import express from 'express';
 
-import { Application, NextFunction, Request, Response } from 'express';
+import config from 'config';
+import log from '../helpers/logger';
 
-const app: Application = express();
-const PORT = 5000;
+const port = config.get('port') as number;
+const host = config.get('host') as string;
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.send('Hello world\n');
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.listen(port, host, () => {
+  log.info(`Server listing at http://${host}:${port}`);
 });
-
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 export default app;
