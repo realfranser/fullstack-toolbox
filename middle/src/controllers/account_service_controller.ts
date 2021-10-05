@@ -9,12 +9,12 @@ export type IAccountServiceControllerClients = Pick<
 >;
 
 export interface IAccountServiceController {
-  getAccountById: (req: Request) => Promise<Account>;
+  getAccountBySid: (req: Request) => Promise<Account | string>;
 }
 
 export const createAccountServiceController = ({
   accountServiceClient,
 }: IAccountServiceControllerClients): IAccountServiceController => ({
-  getAccountById: async (req: Request) =>
+  getAccountBySid: async (req: Request) =>
     accountServiceClient.getAccountBySid(new AccountBySidParams(req.query)),
 });

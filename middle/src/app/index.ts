@@ -1,12 +1,12 @@
 import express from 'express';
 
-import config from 'config';
+import { config } from '../../config/default';
 import log from '../helpers/logger';
 import { createClients } from './createClients';
 import { createRoutes } from './createRoutes';
 
-const port = config.get('port') as number;
-const host = config.get('host') as string;
+const PORT = config.port as number;
+const HOST = config.host as string;
 
 const app = express();
 
@@ -14,8 +14,8 @@ const clients = createClients();
 
 app.use(createRoutes({ clients }));
 
-app.listen(port, host, () => {
-  log.info(`Server listing at http://${host}:${port}`);
+app.listen(PORT, HOST, () => {
+  log.info(`Server listing at http://${HOST}:${PORT}`);
 });
 
 export default app;

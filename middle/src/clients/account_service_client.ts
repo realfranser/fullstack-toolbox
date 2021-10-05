@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+// import { AxiosResponse } from 'axios';
 
 import { Account, AccountBySidParams } from '../models/account';
 
@@ -11,11 +11,15 @@ export class AccountServiceClient extends BaseClient {
    * @param {AccountBySidParams} params
    * @return {Promise<PermissionList>}
    */
-  public async getAccountBySid(params: AccountBySidParams): Promise<Account> {
+  public async getAccountBySid(
+    params: AccountBySidParams
+  ): Promise<Account | string> {
+    /*
     return this.get('/v1/accounts', params).then(
       (response: AxiosResponse): Account => {
         return new Account(response.data);
       }
-    );
+    );*/
+    return 'Has llegado al cliente';
   }
 }

@@ -17,7 +17,7 @@ export function createAccountServiceRoutes({
   const router = Router();
   const controller = createAccountServiceController(clients);
 
-  router.get(`${routeUrl}`, BaseResponse.json(controller.getAccountById));
+  router.get(`${routeUrl}`, BaseResponse.json(controller.getAccountBySid));
 
   return router;
 }
