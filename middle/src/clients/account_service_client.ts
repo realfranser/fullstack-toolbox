@@ -20,6 +20,6 @@ export class AccountServiceClient extends BaseClient {
         return new Account(response.data);
       }
     );*/
-    return 'Has llegado al cliente';
+    return `The AccountService client has received a request from accountSid: ${params.accountSid}`;
   }
 }
