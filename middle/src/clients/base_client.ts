@@ -14,18 +14,12 @@ export class BaseClient {
 
   protected headers: object;
 
-  private baseHeaders: { [k: string]: string };
-
   constructor(
     asyncClient: AxiosInstance,
     serviceName = 'service',
     baseHeaders: { [k: string]: string } | null = null
   ) {
     this.headers = {};
-    this.baseHeaders = {
-      'user-agent': 'numbers-console-service (Axios/Typescript)',
-      ...baseHeaders,
-    };
     this.asyncClient = asyncClient;
     this.serviceName = serviceName;
     this.addInterceptors();
