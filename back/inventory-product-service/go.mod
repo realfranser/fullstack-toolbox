@@ -1,5 +1,3 @@
-module fullstack-toolbox/inventory-product-service
+module github.com/realfranser/fullstack-toolbox/back/inventory-product-service
 
 go 1.13
-
-require github.com/gin-gonic/gin v1.7.4
