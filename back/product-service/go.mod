@@ -1,3 +1,3 @@
-module github.com/realfranser/fullstack-toolbox/back/inventory-product-service
+module github.com/realfranser/fullstack-toolbox/back/product-service
 
-go 1.13
+go 1.17
