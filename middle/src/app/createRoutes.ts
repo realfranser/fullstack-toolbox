@@ -2,8 +2,11 @@ import { Router } from 'express';
 
 import { Paths } from '../constants/resources';
 import { IServiceClients } from '../interfaces/clients';
-import { createAccountServiceRoutes } from '../routes/account_service_routes';
 import { notFoundError } from '../middlewares/notFoundError';
+import {
+  createAccountServiceRoutes,
+  createProductServiceRoutes,
+} from '../routes';
 
 export interface IRouteConfig {
   clients: IServiceClients;
@@ -17,6 +20,12 @@ export function createRoutes({ clients }: IRouteConfig): Router {
   router.use(
     createAccountServiceRoutes({
       routeUrl: Paths.API_ROUTE_V1_ACCOUNTS,
+      clients,
+    })
+  );
+  router.use(
+    createProductServiceRoutes({
+      routeUrl: Paths.API_ROUTE_V1_PRODUCTS,
       clients,
     })
   );

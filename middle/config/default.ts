@@ -14,5 +14,9 @@ export const config: IConfig = {
       name: 'account-service',
       serviceUrl: `${UPSTREAM_HOST}:18001`,
     },
+    productService: {
+      name: 'inventory-product-service',
+      serviceUrl: `${UPSTREAM_HOST}:18002`,
+    },
   },
 };
