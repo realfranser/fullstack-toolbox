@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { createProductServiceController } from '../controllers/inventory_product_service_controller';
+import { createProductServiceController } from '../controllers/product_service_controller';
 import BaseResponse from '../helpers/base_response';
 import { IServiceClients } from '../interfaces/clients';
 
