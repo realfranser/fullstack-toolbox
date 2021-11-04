@@ -1,7 +1,7 @@
 import { Request } from 'express';
 
 import { IServiceClients } from '../interfaces/clients';
-import { Product, ProductByIdParams } from '../models/product';
+import { Product } from '../models/product';
 
 export type IProductServiceControllerClients = Pick<
   IServiceClients,
@@ -16,5 +16,5 @@ export const createProductServiceController = ({
   productServiceClient,
 }: IProductServiceControllerClients): IProductServiceController => ({
   getProductById: async (req: Request) =>
-    productServiceClient.getProductById(new ProductByIdParams(req.query)),
+    productServiceClient.getProductById(req.params.productId),
 });

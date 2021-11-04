@@ -17,7 +17,10 @@ export function createProductServiceRoutes({
   const router = Router();
   const controller = createProductServiceController(clients);
 
-  router.get(`${routeUrl}`, BaseResponse.json(controller.getProductById));
+  router.get(
+    `${routeUrl}/:productId`,
+    BaseResponse.json(controller.getProductById)
+  );
 
   return router;
 }

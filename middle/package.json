@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/app/",
+    "start": "node dist/src/app/",
     "dev": "nodemon src/app/index.ts",
-    "build": "tsc -p .",
+    "build": "rm -rf ./dist && tsc -p .",
     "prepare": "cd .. && husky install middle/.husky",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",

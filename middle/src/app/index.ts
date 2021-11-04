@@ -15,7 +15,7 @@ const clients = createClients();
 app.use(createRoutes({ clients }));
 
 app.listen(PORT, HOST, () => {
-  log.info(`Server listing at http://${HOST}:${PORT}`);
+  log.info(`Server listening at http://${HOST}:${PORT}`);
 });
 
 export default app;
