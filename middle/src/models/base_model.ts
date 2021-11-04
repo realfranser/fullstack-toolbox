@@ -2,6 +2,7 @@
 import {
   Dictionary,
   camelCase,
+  defaults,
   filter,
   forOwn,
   has,
@@ -12,7 +13,21 @@ import {
   upperFirst,
 } from 'lodash';
 
+import {
+  SmartlingTranslationKey,
+  SmartlingTranslationValue,
+} from '../constants/translation';
+
 import { camelizeKeys } from '../helpers/object_utils';
+
+interface IJsonConfig {
+  shouldTranslate?: boolean;
+}
+
+const defaultJsonConfig: IJsonConfig = {
+  // TODO: shouldTranslate should be enabled by default
+  shouldTranslate: true,
+};
 
 export default class Model {
   [key: string]: any;
@@ -28,6 +43,28 @@ export default class Model {
         this[key] = camelCaseData[key];
       }
     });
+  }
+
+  public toJSON(rawConfig: IJsonConfig = {}): object {
+    const config = defaults(rawConfig, defaultJsonConfig);
+    const result: { [key: string]: any } = {};
+    this.fields.forEach((key) => {
+      if (key in this) {
+        result[key] = this[key];
+      }
+    });
+
+    /*
+     * https://issues.corp.twilio.com/browse/PNREG-759
+     * https://wiki.hq.twilio.com/pages/viewpage.action?pageId=92761953#Console&Smartling-TranslationsinanJSONendpoint
+     * https://help.smartling.com/hc/en-us/articles/360000322694
+     */
+    if (!config.shouldTranslate) {
+      result[SmartlingTranslationKey.TRANSLATION_KEY] =
+        SmartlingTranslationValue.SL_NONE;
+    }
+
+    return result;
   }
 
   protected processRedactedFields(
