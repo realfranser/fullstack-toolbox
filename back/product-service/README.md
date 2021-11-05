@@ -5,3 +5,7 @@ Service that provides all the products and online services to the clients. This 
 ## Installation
 
 ## Endpoints
+
+## Sources
+
+Check for null values in db -> https://medium.com/aubergine-solutions/how-i-handled-null-possible-values-from-database-rows-in-golang-521fb0ee267
