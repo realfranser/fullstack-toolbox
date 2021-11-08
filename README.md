@@ -3,7 +3,7 @@
 This is a fullstack *template* that allows to create a fast MVP for any web
 application project.
 
-The front-end is built with Typescript+React, the middle-end is built with
+The front-end is built with Typescript+React, the api is built with
 Typescript+Express and the backend will use Golang using a microservices
 architecture.
 
@@ -11,7 +11,10 @@ architecture.
 
 TS + React
 
-## Middle
+## Api
+
+Conects the frontend with all the services, ensures security, verification and
+makes api calls to other online services
 
 TS + Express
 
