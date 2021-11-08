@@ -8,9 +8,8 @@ reset=`tput sgr0`
 # Compile and run product-service
 compile_run() {
   cd cmd/main
-  echo "Compiling product-service ..."
   go build main.go
-  echo "${green}Executing product-service ..."
+  echo "${green}product-service compiled successfuly${reset}"
   ./main
   exit 0
 }
@@ -23,7 +22,7 @@ do_command() {
 }
 
 if [ $# -ne 0 ]; then
-  echo "${red}Select a function to operate"
+  echo "${red}No arguments are required when calling service.sh"
   exit 1
 fi
 
