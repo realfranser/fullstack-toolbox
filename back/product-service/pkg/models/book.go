@@ -1,8 +1,8 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/config"
+	"gorm.io/gorm"
 )
 
 var db *gorm.DB
@@ -21,7 +21,6 @@ func init() {
 }
 
 func (b *Book) CreateBook() *Book {
-	db.NewRecord(b)
 	db.Create(&b)
 	return b
 }
