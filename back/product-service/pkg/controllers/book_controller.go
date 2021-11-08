@@ -76,7 +76,7 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	}
 	/* WARNING: posible mistake at checking null int value from DB, check README sources */
 	if updateBook.Stock != 0 {
-		bookDetails.Author = updateBook.Author
+		bookDetails.Stock = updateBook.Stock
 	}
 	db.Save(&bookDetails)
 	res, _ := json.Marshal(bookDetails)

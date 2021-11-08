@@ -5,40 +5,40 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var bookDB *gorm.DB
 
 type Book struct {
 	gorm.Model
-	Title string `json:"title"`
-	Author string `json:"author"`
-	Stock uint16	`json:"stock"`
+	Title 	string 	`json:"title"`
+	Author 	string 	`json:"author"`
+	Stock 	uint16	`json:"stock"`
 }
 
 func init() {
 	config.Connect()
-	db = config.GetDB()
-	db.AutoMigrate(&Book{})
+	bookDB = config.GetDB()
+	bookDB.AutoMigrate(&Book{})
 }
 
 func (b *Book) CreateBook() *Book {
-	db.Create(&b)
+	bookDB.Create(&b)
 	return b
 }
 
 func GetAllBooks() []Book {
 	var Books []Book
-	db.Find(&Books)
+	bookDB.Find(&Books)
 	return Books
 }
 
 func GetBookById(Id int64) (*Book, *gorm.DB) {
 	var getBook Book
-	db := db.Where("ID=?", Id).Find(&getBook)
-	return &getBook, db
+	bookDB := bookDB.Where("ID=?", Id).Find(&getBook)
+	return &getBook, bookDB
 }
 
 func DeleteBook(ID int64) Book {
 	var book Book
-	db.Where("ID=?", ID).Delete(&book)
+	bookDB.Where("ID=?", ID).Delete(&book)
 	return book
 }
