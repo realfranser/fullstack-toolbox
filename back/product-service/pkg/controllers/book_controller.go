@@ -68,14 +68,14 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error while parsing")
 	}
 	bookDetails, db := models.GetBookById(ID)
-	if updateBook.Name != "" {
-		bookDetails.Name = updateBook.Name
+	if updateBook.Title != "" {
+		bookDetails.Title = updateBook.Title
 	}
 	if updateBook.Author != "" {
 		bookDetails.Author = updateBook.Author
 	}
 	/* WARNING: posible mistake at checking null int value from DB, check README sources */
-	if &updateBook.Stock != nil {
+	if updateBook.Stock != 0 {
 		bookDetails.Author = updateBook.Author
 	}
 	db.Save(&bookDetails)
