@@ -14,7 +14,7 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	routes.RegisterBookRoutes(r)
+	routes.RegisterRoutes(r)
 	http.Handle("/", r)
 
 	srv := &http.Server{

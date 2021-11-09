@@ -30,4 +30,17 @@ func (p *Product) CreateProduct() *Product {
 func GetAllProducts() []Product {
 	var Products []Product
 	productDB.Find(&Products)
+	return Products
+}
+
+func GetProductById(Id int64) (*Product, *gorm.DB) {
+	var getProduct Product
+	productDB := productDB.Where("ID=?", Id).Find(&getProduct)
+	return &getProduct, productDB
+}
+
+func DeleteProduct(ID int64) Product {
+	var product Product
+	productDB.Where("ID=?", ID).Delete(&product)
+	return product
 }

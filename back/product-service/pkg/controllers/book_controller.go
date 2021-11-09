@@ -40,6 +40,7 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	utils.ParseBody(r, createBook)
 	b := createBook.CreateBook()
 	res, _ := json.Marshal(b)
+	w.Header().Set("Content-Type", "pkglocation/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
