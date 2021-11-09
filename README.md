@@ -34,3 +34,7 @@ MySQL
 
 > Login: Google/Facebook/Twitter autentication
 
+## Endpoints
+All the endpoints used to make this porject work are available on this [Postman
+workspace](https://fullstack-toolbox.postman.co/workspace/d8400c79-46c8-4891-b394-02cf979c794e)
+
