@@ -27,11 +27,19 @@ compile_run() {
   exit 0
 }
 
+# Uses nodemon to recompile each time a go file is saved
+dev() {
+  cd cmd/main
+  nodemon --exec go run main.go --signal SIGTERM
+  exit 0
+}
+
 do_command() {
     case "$1" in
       "compile") compile ;;
       "run") run ;;
       "compile & run") compile_run ;;
+      "dev") dev ;;
      *) echo "unknown option";;
     esac
 }
@@ -41,7 +49,7 @@ if [ $# -ne 0 ]; then
   exit 1
 fi
 
-select menu in compile run "compile & run"
+select menu in compile run "compile & run" dev
 do
   do_command "$menu"
 done
