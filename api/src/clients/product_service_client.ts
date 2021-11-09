@@ -12,7 +12,7 @@ export class ProductServiceClient extends BaseClient {
    * @return {Promise<Product>}
    */
   public async getProductById(productId: string): Promise<Product> {
-    return this.get(`/v1/product/${productId}`).then(
+    return this.get(`/api/v1/product/${productId}`).then(
       (response: AxiosResponse): Product => {
         return new Product(response.data);
       }
