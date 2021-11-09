@@ -6,7 +6,7 @@ Service that provides all the products and online services to the clients. This 
 
 ## Endpoints
 
-All endpoints available and tested at [Postman product-service workspace](https://fullstack-toolbox.postman.co/workspace/06ec8474-e53b-4b16-8823-a82e0ff92a14)
+All endpoints available and tested at [Postman product-service workspace](https://fullstack-toolbox.postman.co/workspace/fullstack-toolbox~d8400c79-46c8-4891-b394-02cf979c794e/collection/18262183-c043c05e-82da-4120-b077-461d5edcf550)
 
 ## Sources
 
