@@ -4,7 +4,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var RegisterRoutes = func(router *mux.Router){
+var RegisterV1Routes = func(router *mux.Router){
 	RegisterBookRoutes(router)
 	RegisterProductRoutes(router)
 }

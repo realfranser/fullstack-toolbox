@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,9 +14,19 @@ import (
 )
 
 func main() {
+	flag.Parse()
 	r := mux.NewRouter()
-	routes.RegisterRoutes(r)
-	http.Handle("/", r)
+	/* Check that request starts with /api */
+	api := r.PathPrefix("/api").Subrouter()
+  api.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        w.WriteHeader(http.StatusNotFound)
+  })
+	/* handle v1 routes */
+	apiV1 := api.PathPrefix("/v1").Subrouter()
+  apiV1.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        w.WriteHeader(http.StatusNotFound)
+  })
+	routes.RegisterV1Routes(apiV1)
 
 	srv := &http.Server{
 		Handler: r,

@@ -11,3 +11,5 @@ All endpoints available and tested at [Postman product-service workspace](https:
 ## Sources
 
 Check for null values in db -> https://medium.com/aubergine-solutions/how-i-handled-null-possible-values-from-database-rows-in-golang-521fb0ee267
+
+Api versioning (routing) -> https://dev.to/geosoft1/versioning-your-api-in-go-1g4h
