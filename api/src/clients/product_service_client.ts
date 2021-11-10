@@ -13,7 +13,6 @@ export class ProductServiceClient extends BaseClient {
   public async getAllProducts(): Promise<ProductList> {
     return this.get('/api/v1/product').then(
       (response: AxiosResponse): ProductList => {
-        console.log(response.data);
         return new ProductList(response.data);
       }
     );
