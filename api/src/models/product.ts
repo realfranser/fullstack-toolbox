@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { IProduct, IProductList } from '../interfaces/product';
+import {
+  IProduct,
+  IProductList,
+  IProductByIdParams,
+  IProductListParams,
+} from '../interfaces/product';
 
 import Model from './base_model';
+import { SidPagingQueryParams } from './paging/sid_paging_query_params';
 
 export class Product extends Model implements IProduct {
   protected fields: string[] = ['id', 'name', 'category', 'price', 'stock'];
@@ -24,21 +30,6 @@ export class Product extends Model implements IProduct {
   }
 }
 
-export class ProductList extends Model implements IProductList {
-  protected fields: string[] = ['products'];
-
-  public products: IProduct[] | undefined = undefined;
-
-  constructor(data: object) {
-    super();
-    this.populate(data);
-  }
-}
-
-export interface IProductByIdParams {
-  productId: string;
-}
-
 export class ProductByIdParams extends Model implements IProductByIdParams {
   protected fields: string[] = ['productId'];
 
@@ -46,6 +37,39 @@ export class ProductByIdParams extends Model implements IProductByIdParams {
 
   constructor(data: object) {
     super();
+    this.populate(data);
+  }
+}
+
+export class ProductList extends Model implements IProductList {
+  protected fields: string[] = ['items'];
+
+  public items: Product[] = [];
+
+  constructor(data: object) {
+    super();
+    this.populate(data);
+  }
+}
+
+export class ProductListParams
+  extends SidPagingQueryParams
+  implements IProductListParams
+{
+  protected fields: string[] = [
+    'pageSize',
+    'afterSid',
+    'beforeSid',
+    'to',
+    'from',
+  ];
+
+  public to?: string;
+
+  public from?: string;
+
+  constructor(data: object) {
+    super(data);
     this.populate(data);
   }
 }
