@@ -31,7 +31,6 @@ compile_run() {
 dev() {
   cd cmd/main
   nodemon --exec go run main.go --signal SIGTERM
-  exit 0
 }
 
 do_command() {

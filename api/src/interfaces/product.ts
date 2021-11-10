@@ -7,7 +7,16 @@ export interface IProduct {
   description: string | undefined;
 }
 
+export interface IProductByIdParams {
+  productId: string;
+}
+
 /* TODO: product pagination */
 export interface IProductList {
-  products: IProduct[] | undefined;
+  items: IProduct[];
+}
+
+export interface IProductListParams {
+  from?: string;
+  to?: string;
 }
