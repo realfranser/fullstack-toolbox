@@ -8,7 +8,7 @@ import (
 var bookDB *gorm.DB
 
 type Book struct {
-	gorm.Model
+	ID     	uint		`gorm:"primaryKey"`
 	Title 	string 	`json:"title"`
 	Author 	string 	`json:"author"`
 	Stock 	uint16	`json:"stock"`
