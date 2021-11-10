@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { IProductModel } from '../interfaces/product';
+import { IProduct, IProductList } from '../interfaces/product';
 
 import Model from './base_model';
 
-export class Product extends Model implements IProductModel {
+export class Product extends Model implements IProduct {
   protected fields: string[] = ['id', 'name', 'category', 'price', 'stock'];
 
   public id: string | undefined = undefined;
@@ -17,6 +17,17 @@ export class Product extends Model implements IProductModel {
   public stock: number | undefined = undefined;
 
   public description: string | undefined = undefined;
+
+  constructor(data: object) {
+    super();
+    this.populate(data);
+  }
+}
+
+export class ProductList extends Model implements IProductList {
+  protected fields: string[] = ['products'];
+
+  public products: IProduct[] | undefined = undefined;
 
   constructor(data: object) {
     super();

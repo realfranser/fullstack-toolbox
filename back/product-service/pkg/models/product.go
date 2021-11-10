@@ -8,12 +8,16 @@ import (
 var productDB *gorm.DB
 
 type Product struct {
-	gorm.Model
+	ID     			uint		`json:"id" gorm:"primaryKey"`
 	Name 				string	`json:"name"`
 	Category 		string 	`json:"category"`
 	Price 			float32 `json:"price"`
 	Stock 			uint16	`json:"stock"`
 	Description string 	`json:"description"`
+}
+
+type ProductList struct {
+	Items		[]Product		`json:"items"`
 }
 
 func init() {
@@ -39,8 +43,8 @@ func GetProductById(Id int64) (*Product, *gorm.DB) {
 	return &getProduct, productDB
 }
 
-func DeleteProduct(ID int64) Product {
+func DeleteProduct(Id int64) Product {
 	var product Product
-	productDB.Where("ID=?", ID).Delete(&product)
+	productDB.Where("ID=?", Id).Delete(&product)
 	return product
 }

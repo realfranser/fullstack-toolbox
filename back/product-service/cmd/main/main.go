@@ -35,6 +35,7 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
+
 	fmt.Printf("Server running at port %s\n", srv.Addr)
 	log.Fatal(srv.ListenAndServe())
 }

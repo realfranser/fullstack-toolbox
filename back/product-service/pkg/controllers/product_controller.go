@@ -11,11 +11,12 @@ import (
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/utils"
 )
 
-var NewProduct models.Product
-
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	newProducts := models.GetAllProducts()
-	res, _ := json.Marshal(newProducts)
+	var NewProductList models.ProductList
+	NewProductList.Items = newProducts
+	res, _ := json.Marshal(NewProductList)
+
 	w.Header().Set("Content-Type", "pkglocation/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
@@ -30,6 +31,7 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 	}
 	productDetails, _ := models.GetProductById(ID)
 	res, _ := json.Marshal(productDetails)
+
 	w.Header().Set("Content-Type", "pkglocation/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
@@ -40,6 +42,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	utils.ParseBody(r, createProduct)
 	b := createProduct.CreateProduct()
 	res, _ := json.Marshal(b)
+
 	w.Header().Set("Content-Type", "pkglocation/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
@@ -54,6 +57,7 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	product := models.DeleteProduct(ID)
 	res, _ := json.Marshal(product)
+
 	w.Header().Set("Content-Type", "pkglocation/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
@@ -87,8 +91,8 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	db.Save(&productDetails)
 	res, _ := json.Marshal(productDetails)
+
 	w.Header().Set("Content-Type", "pkglocation/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
-
