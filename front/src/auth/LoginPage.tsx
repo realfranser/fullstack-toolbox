@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { onLogin } from "./auth.api";
 import { AuthForm } from "./Auth.components";
 
 const LoginPage = () => {
@@ -7,8 +8,22 @@ const LoginPage = () => {
     password: "",
   });
 
+  const [error, setError] = useState("");
+
+  const login = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const response = await onLogin({
+      username,
+      password,
+    });
+
+    if (response && response.error) {
+      setError(response.error);
+    }
+  };
+
   return (
-    <AuthForm>
+    <AuthForm onSubmit={login}>
       <label htmlFor="username">Username</label>
       <input
         placeholder="Username"
@@ -33,6 +48,7 @@ const LoginPage = () => {
         }
       />
       <button type="submit">Login</button>
+      {error.length > 0 && <p>{error}</p>}
     </AuthForm>
   );
 };
