@@ -44,3 +44,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Sources
+
+Auth JWT: https://www.bezkoder.com/react-typescript-login-example/
+Auth Architecture: https://medium.com/@rostislavdugin/the-clean-architecture-using-react-and-typescript-a832662af803
