@@ -1,6 +1,7 @@
 import axios from "axios";
+import { Paths } from "../../constants/resources";
 
-const API_URL = "http://localhost:18000/api/v1/auth/";
+const API_URL = Paths.API_ROUTE_V1_USERS;
 
 class AuthService {
   login(username: string, password: string) {

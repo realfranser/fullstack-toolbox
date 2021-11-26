@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import { Paths } from "../../constants/resources";
 
-const API_URL = "http://localhost:18000/api/v1/test/";
+const API_URL = Paths.API_ROUTE_V1_USERS;
 
 class UserService {
   getPublicContent() {

@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-import UserService from "../../services/user.service";
+import UserService from "../../services/users/user.service";
 import eventBus from "../../common/EventBus";
 
 type Props = {};
@@ -9,7 +9,7 @@ type State = {
   content: string;
 };
 
-export class BoardModerator extends Component<Props, State> {
+export class BoardAdmin extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -19,7 +19,7 @@ export class BoardModerator extends Component<Props, State> {
   }
 
   componentDidMount() {
-    UserService.getModeratorBoard().then(
+    UserService.getAdminBoard().then(
       (response) => {
         this.setState({
           content: response.data,

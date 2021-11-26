@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-import UserService from "../../services/user.service";
+import UserService from "../../services/users/user.service";
 
 type Props = {};
 
@@ -8,7 +8,7 @@ type State = {
   content: string;
 };
 
-export class BoardUser extends Component<Props, State> {
+export class Home extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -18,7 +18,7 @@ export class BoardUser extends Component<Props, State> {
   }
 
   componentDidMount() {
-    UserService.getUserBoard().then(
+    UserService.getPublicContent().then(
       (response) => {
         this.setState({
           content: response.data,
@@ -27,9 +27,7 @@ export class BoardUser extends Component<Props, State> {
       (error) => {
         this.setState({
           content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
+            (error.response && error.response.data) ||
             error.message ||
             error.toString(),
         });

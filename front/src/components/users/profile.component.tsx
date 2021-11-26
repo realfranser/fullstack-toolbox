@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Redirect } from "react-router-dom";
-import AuthService from "../../services/auth.service";
+import AuthService from "../../services/users/auth.service";
 import { IUser } from "../../interfaces/user";
 
 type Props = {};

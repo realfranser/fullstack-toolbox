@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import AuthService from "../../services/auth.service";
+import AuthService from "../../services/users/auth.service";
 
 interface RouterProps {
   history: string;
