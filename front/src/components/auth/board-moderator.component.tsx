@@ -1,6 +1,7 @@
 import { Component } from "react";
 
-import UserService from "../services/user.service";
+import UserService from "../../services/user.service";
+import eventBus from "../../common/EventBus";
 
 type Props = {};
 
@@ -8,7 +9,7 @@ type State = {
   content: string;
 };
 
-export class Home extends Component<Props, State> {
+export class BoardModerator extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -18,7 +19,7 @@ export class Home extends Component<Props, State> {
   }
 
   componentDidMount() {
-    UserService.getPublicContent().then(
+    UserService.getModeratorBoard().then(
       (response) => {
         this.setState({
           content: response.data,
@@ -27,10 +28,16 @@ export class Home extends Component<Props, State> {
       (error) => {
         this.setState({
           content:
-            (error.response && error.response.data) ||
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
             error.message ||
             error.toString(),
         });
+
+        if (error.response && error.response.status === 401) {
+          eventBus.dispatch("logout");
+        }
       }
     );
   }
