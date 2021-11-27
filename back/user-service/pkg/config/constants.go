@@ -1,6 +1,6 @@
 package config
 
 const (
-	ServicePort = 18002
-	ServiceName = "product-service"
+	ServicePort = 18003
+	ServiceName = "user-service"
 )
