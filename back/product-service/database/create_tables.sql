@@ -1,4 +1,4 @@
-USE product_service
+USE product_service;
 
 CREATE TABLE `books`
 (
@@ -8,7 +8,7 @@ CREATE TABLE `books`
 	stock INT NOT NULL,
 	-- Properties
 	PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE `products`
 (
@@ -20,4 +20,4 @@ CREATE TABLE `products`
 	description VARCHAR(100),
 	-- Properties
 	PRIMARY KEY(id)
-)
+);
