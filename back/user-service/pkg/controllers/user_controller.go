@@ -18,7 +18,12 @@ func HashPassword()
 
 func VerifyPassword()
 
-func Signup()
+func Signup(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	validationErr := validate.Struct(NewUser)
+
+}
 
 func Login()
 
@@ -33,10 +38,10 @@ func GetUserById(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := helper.MatchUserTypeToUid(r, userId); err != nil {
-		helper.respondWithError(w, http.StatusBadRequest, err.Error())
+		helper.RespondWithError(w, http.StatusBadRequest, err.Error())
 	}
 
 	userDatails, _ := models.GetUserById(ID)
 
-	helper.respondWithJSON(w, http.StatusOK, userDatails)
+	helper.RespondWithJSON(w, http.StatusOK, userDatails)
 }
