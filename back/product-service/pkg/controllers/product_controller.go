@@ -39,7 +39,11 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var createProduct = &models.Product{}
-	utils.ParseBody(r, createProduct)
+	if errCode, err := utils.ParseBody(r, createProduct); err != nil {
+		utils.RespondWithError(w, errCode, err.Error())
+		return
+	}
+
 	b := createProduct.CreateProduct()
 	res, _ := json.Marshal(b)
 
