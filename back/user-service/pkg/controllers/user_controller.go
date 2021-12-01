@@ -8,9 +8,13 @@ import (
 	"github.com/gorilla/mux"
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
-func HashPassword()
+func HashPassword(password string) string{
+	bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes)
+}
 
 func VerifyPassword()
 
@@ -20,6 +24,8 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		helper.RespondWithError(w, errCode, err.Error())
 		return
 	}
+	password := HashPassword(*signupUser.Password)
+	signupUser.Password = &password
 	/* Check if the email or phone number are already in use */
 	if signupUser.CheckPhoneEmail() {
 		helper.RespondWithError(w, http.StatusConflict, "this email or phone number are alreadly in use")
@@ -30,11 +36,22 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	signupUser.Token = &token
 	signupUser.Refresh_token = &refreshToken
 	user := signupUser.CreateUser()
+	newUser, db := models.GetUserById(int64(user.ID))
+	newUser.User_id = strconv.FormatUint(uint64(newUser.ID), 16)
+	db.Save(&newUser)
 
 	helper.RespondWithJSON(w, http.StatusCreated, user)
 }
 
-func Login()
+func Login(w http.ResponseWriter, r *http.Request) {
+	var user models.User
+	var foundUser models.User
+
+	if errCode, err := helper.ParseBody(r, user); err != nil {
+		helper.RespondWithError(w, errCode, err.Error())
+		return
+	}
+}
 
 func GetUsers()
 
