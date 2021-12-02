@@ -39,10 +39,10 @@ func GetAllUsers() []User {
 	return Users
 }
 
-func GetUserById(Id int64) (*User, *gorm.DB){
+func GetUserById(Id uint) (*User, *gorm.DB){
 	var getUser User
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-	userDB := userDB.WithContext(ctx).Where("ID=?", Id).Find(&getUser)
+	userDB := userDB.WithContext(ctx).Where("ID=?", Id).First(&getUser)
 	defer cancel()
 	return &getUser, userDB
 }
@@ -52,10 +52,28 @@ func (u *User) CreateUser() *User {
 	return u
 }
 
+/* Extra DB calls */
+
 func (u *User) CheckPhoneEmail() (bool){
 	var existsUser User
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-	userDB := userDB.WithContext(ctx).Where("email=? OR phone=?", u.Email, u.Phone).Limit(1).Find(&existsUser)
+	userDB := userDB.WithContext(ctx).Where("email=? OR phone=?", u.Email, u.Phone).First(&existsUser)
 	defer cancel()
 	return userDB.RowsAffected > 0
+}
+
+func GetUserByEmail(email string) (*User, *gorm.DB){
+	var getUser User
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	userDB := userDB.WithContext(ctx).Where("email=?", email).First(&getUser)
+	defer cancel()
+	return &getUser, userDB
+}
+
+func GetUserByHexId(userID string) (*User, *gorm.DB){
+	var getUser User
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	userDB := userDB.WithContext(ctx).Where("user_id=?", userID).First(&getUser)
+	defer cancel()
+	return &getUser, userDB
 }

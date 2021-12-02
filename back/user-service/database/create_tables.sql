@@ -11,6 +11,7 @@ CREATE TABLE `users`
 	token VARCHAR(100),
 	user_type VARCHAR(10) NOT NULL,
 	refresh_token VARCHAR(100) NOT NULL,
+	user_id VARCHAR(100),
 	-- Properties
 	PRIMARY KEY(id)
 );

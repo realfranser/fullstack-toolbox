@@ -1,11 +1,13 @@
 package helpers
 
 import (
+	"context"
 	"log"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/config"
+	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
 )
 
 type SignedDetails struct {
@@ -13,17 +15,19 @@ type SignedDetails struct {
 	First_name 	string
 	Last_name 	string
 	User_type		string
+	User_id			string
 	jwt.StandardClaims
 }
 
 var SECRET_KEY string = config.SecretKey
 
-func GenerateAllTokens(email string, firstName string, lastName string, userType string) (signedToken string, signedRefreshToken string, err error){
+func GenerateAllTokens(email string, firstName string, lastName string, userType string, userId string) (signedToken string, signedRefreshToken string, err error){
 	claims := &SignedDetails{
 		Email: email,
 		First_name: firstName,
 		Last_name: lastName,
 		User_type: userType,
+		User_id: userId,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Local().Add(time.Hour * time.Duration(24)).Unix(),
 		},
@@ -36,12 +40,30 @@ func GenerateAllTokens(email string, firstName string, lastName string, userType
 	}
 
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(SECRET_KEY))
+	if err != nil {
+		log.Panic(err)
+		return
+	}
 	refreshToken, err := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims).SignedString([]byte(SECRET_KEY))
-
 	if err != nil {
 		log.Panic(err)
 		return
 	}
 
 	return token, refreshToken, err
+}
+
+func UpdateAllTokens(signedToken string, signedRefreshToken string, userId string) {
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	updateUser, db := models.GetUserByHexId(userId)
+	defer cancel()
+	if db.Error != nil {
+		log.Panic(db.Error.Error())
+		return
+	}
+
+	updateUser.Token = &signedToken
+	updateUser.Refresh_token = &signedRefreshToken
+	db.Save(&updateUser).WithContext(ctx)
+	defer cancel()
 }
