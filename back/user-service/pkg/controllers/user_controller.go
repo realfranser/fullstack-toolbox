@@ -51,7 +51,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		*newUser.First_name,
 		*newUser.Last_name,
 		*newUser.User_type,
-		*&newUser.User_id,
+		newUser.User_id,
 	)
 	newUser.Token = &token
 	newUser.Refresh_token = &refreshToken
@@ -100,25 +100,12 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	if err := helper.CheckUserType(r, "ADMIN"); err != nil {
 		helper.RespondWithError(w, http.StatusBadRequest, err.Error())
 	}
-	vars := mux.Vars(r)
-	queryPageSize := vars["pageSize"]
-	queryPage := vars["page"]
-	queryOffset := vars["offset"]
-	pageSize, err := strconv.ParseInt(queryPageSize, 0, 0)
-	if err != nil || pageSize < 1{
-		pageSize = 10
-	}
-	page, err := strconv.ParseInt(queryPage, 0, 0)
-	if err != nil || page < 1 {
-		page = 1
-	}
-	offset := (page -1) * pageSize
-	specificOffset, err := strconv.ParseInt(queryOffset, 0, 0)
-	if err == nil && specificOffset > 0 {
-		offset = specificOffset
-	}
+	offset, pageSize := helper.Paginate(r)
+	getUsers := models.GetAllUsers(offset, pageSize)
 
-	models.GetAllUsers(int(offset), int(pageSize))
+	var userList models.UserList
+	userList.Items = getUsers
+	helper.RespondWithJSON(w, http.StatusOK, userList)
 }
 
 func GetUserById(w http.ResponseWriter, r *http.Request) {
