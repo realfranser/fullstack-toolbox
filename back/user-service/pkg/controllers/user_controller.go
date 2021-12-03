@@ -95,7 +95,31 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	helper.RespondWithJSON(w, http.StatusAccepted, userFound)
 }
 
-func GetUsers()
+func GetUsers(w http.ResponseWriter, r *http.Request) {
+	/* Param parsing and processing */
+	if err := helper.CheckUserType(r, "ADMIN"); err != nil {
+		helper.RespondWithError(w, http.StatusBadRequest, err.Error())
+	}
+	vars := mux.Vars(r)
+	queryPageSize := vars["pageSize"]
+	queryPage := vars["page"]
+	queryOffset := vars["offset"]
+	pageSize, err := strconv.ParseInt(queryPageSize, 0, 0)
+	if err != nil || pageSize < 1{
+		pageSize = 10
+	}
+	page, err := strconv.ParseInt(queryPage, 0, 0)
+	if err != nil || page < 1 {
+		page = 1
+	}
+	offset := (page -1) * pageSize
+	specificOffset, err := strconv.ParseInt(queryOffset, 0, 0)
+	if err == nil && specificOffset > 0 {
+		offset = specificOffset
+	}
+
+	models.GetAllUsers(int(offset), int(pageSize))
+}
 
 func GetUserById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)

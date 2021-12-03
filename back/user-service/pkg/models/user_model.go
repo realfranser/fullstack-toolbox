@@ -33,9 +33,9 @@ func init() {
 	userDB.AutoMigrate(&User{})
 }
 
-func GetAllUsers() []User {
+func GetAllUsers(offset int, pageSize int) []User {
 	var Users []User
-	userDB.Find(&Users)
+	userDB.Offset(offset).Limit(pageSize).Find(&Users)
 	return Users
 }
 
