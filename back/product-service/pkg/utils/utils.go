@@ -10,7 +10,7 @@ import (
 
 var validate = validator.New()
 
-func ParseBody(r *http.Request, x interface{}) (errorCode int, err error){
+func ParseBody(r *http.Request, x interface{}) (errCode int, err error){
 	err = nil
 	if body, err := ioutil.ReadAll(r.Body); err == nil {
 		if err:= json.Unmarshal([]byte(body), x); err != nil {
