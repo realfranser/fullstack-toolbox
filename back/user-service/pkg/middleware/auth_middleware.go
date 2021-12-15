@@ -8,6 +8,7 @@ import (
 
 func Authenticate(next http.Handler) http.Handler{
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		/* WARNING: check if this token is extracted as expected */
 		clientToken := r.Header.Get("token")
 		if clientToken == "" {
 			helper.RespondWithError(w, http.StatusForbidden, "No Authorization header provided")
