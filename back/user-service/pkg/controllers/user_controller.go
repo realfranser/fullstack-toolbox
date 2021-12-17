@@ -8,25 +8,8 @@ import (
 	"github.com/gorilla/mux"
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
-	"golang.org/x/crypto/bcrypt"
 )
 
-func HashPassword(password string) string{
-	bcrypt.GenerateFromPassword([]byte(password), 14)
-	return string(password)
-}
-
-func VerifyPassword(userPassword string, providedPassword string) (bool, string){
-	check := true
-	msg := ""
-
-	if err := bcrypt.CompareHashAndPassword([]byte(providedPassword), []byte(userPassword)); err != nil {
-		check = false
-		msg = "email or password is incorrect"
-	}
-
-	return check, msg
-}
 
 func Signup(w http.ResponseWriter, r *http.Request) {
 	var signupUser = &models.User{}
@@ -34,7 +17,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		helper.RespondWithError(w, errCode, err.Error())
 		return
 	}
-	password := HashPassword(*signupUser.Password)
+	password := helper.HashPassword(*signupUser.Password)
 	signupUser.Password = &password
 	/* Check if the email or phone number are already in use */
 	if signupUser.CheckPhoneEmail() {
@@ -75,7 +58,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if passwordIsValid, msg := VerifyPassword(*user.Password, *userDetails.Password); !passwordIsValid {
+	if passwordIsValid, msg := helper.VerifyPassword(*user.Password, *userDetails.Password); !passwordIsValid {
 		helper.RespondWithError(w, http.StatusUnauthorized, msg)
 		return
 	}
