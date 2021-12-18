@@ -6,7 +6,7 @@ import (
 )
 
 var RegisterUserRoutes = func(router *mux.Router) {
-	router.Use(middleware.Authenticate)
+	//router.Use(middleware.Authenticate)
 	router.HandleFunc("/users", controllers.GetUsers).Methods("GET")
 	router.HandleFunc("/users/{userId}", controllers.GetUserById).Methods("GET")
 }

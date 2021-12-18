@@ -14,6 +14,7 @@ type SignedDetails struct {
 	Email 			string
 	First_name 	string
 	Last_name 	string
+	Nickname		string
 	User_type		string
 	User_id			string
 	jwt.StandardClaims
@@ -21,11 +22,17 @@ type SignedDetails struct {
 
 var SECRET_KEY string = config.SecretKey
 
-func GenerateAllTokens(email string, firstName string, lastName string, userType string, userId string) (signedToken string, signedRefreshToken string, err error){
+func GenerateAllTokens(email string,
+												firstName string,
+												lastName string,
+												nickname string,
+												userType string,
+												userId string) (signedToken string, signedRefreshToken string, err error){
 	claims := &SignedDetails{
 		Email: email,
 		First_name: firstName,
 		Last_name: lastName,
+		Nickname: nickname,
 		User_type: userType,
 		User_id: userId,
 		StandardClaims: jwt.StandardClaims{

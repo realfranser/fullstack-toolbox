@@ -30,6 +30,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		*newUser.Email,
 		*newUser.First_name,
 		*newUser.Last_name,
+		*newUser.Nickname,
 		*newUser.User_type,
 		newUser.User_id,
 	)
@@ -64,13 +65,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		helper.RespondWithError(w, http.StatusNotFound, "user not found")
 		return
 	}
-	token, refreshToken, _ := helper.GenerateAllTokens(*userDetails.Email, *userDetails.First_name, *userDetails.Last_name, *userDetails.User_type, userDetails.User_id)
+	token, refreshToken, _ := helper.GenerateAllTokens(*userDetails.Email,
+																											*userDetails.First_name,
+																											*userDetails.Last_name,
+																											*userDetails.Nickname,
+																											*userDetails.User_type,
+																											userDetails.User_id)
+
 	helper.UpdateAllTokens(token, refreshToken, userDetails.User_id)
 	userFound, db := models.GetUserByHexId(user.User_id)
 	if db.Error != nil {
 		helper.RespondWithError(w, http.StatusInternalServerError, db.Error.Error())
 		return
 	}
-
 	helper.RespondWithJSON(w, http.StatusAccepted, userFound)
 }
