@@ -8,7 +8,6 @@ import (
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
 )
 
-
 func Signup(w http.ResponseWriter, r *http.Request) {
 	var signupUser = &models.User{}
 	if errCode, err := helper.ParseBody(r, signupUser); err != nil {

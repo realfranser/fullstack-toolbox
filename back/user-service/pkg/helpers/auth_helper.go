@@ -21,15 +21,13 @@ func CheckUserType(r *http.Request, role string) (err error) {
 }
 
 func MatchUserTypeToUid(r *http.Request, userId string) (err error) {
-	vars := mux.Vars(r)
-	userType := vars["user_type"]
-	uid := vars["uid"]
-
+	/* TODO: check ctx content */
+	var claims = &SignedDetails{}
 	ctx := r.Context()
+	ctx.Value(claims)
 
-
-	print(ctx)
-
+	uid := claims.User_id
+	userType := claims.User_type
 	err = nil
 
 	if userType == "USER" && uid != userId {

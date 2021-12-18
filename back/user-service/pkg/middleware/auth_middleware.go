@@ -22,7 +22,8 @@ func Authenticate(next http.Handler) http.Handler{
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), helper.SignedDetails{}, claims)
+		defaultContext := context.Background()
+		ctx := context.WithValue(defaultContext, helper.SignedDetails{}, claims)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
