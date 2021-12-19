@@ -28,6 +28,10 @@ type UserList struct {
 	Items 	[]User	`json:"items"`
 }
 
+type SignupResponse struct {
+	User_id	string	`json:"user_id"`
+}
+
 func init() {
 	config.Connect()
 	userDB = config.GetDB()

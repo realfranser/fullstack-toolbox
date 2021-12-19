@@ -10,6 +10,7 @@ import (
 
 func Signup(w http.ResponseWriter, r *http.Request) {
 	var signupUser = &models.User{}
+	var signupResponse = &models.SignupResponse{}
 	if errCode, err := helper.ParseBody(r, signupUser); err != nil {
 		helper.RespondWithError(w, errCode, err.Error())
 		return
@@ -39,7 +40,8 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	/* Update user_id and tokens */
 	db.Save(&newUser)
 
-	helper.RespondWithJSON(w, http.StatusCreated, newUser)
+	signupResponse.User_id = newUser.User_id
+	helper.RespondWithJSON(w, http.StatusCreated, signupResponse)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
