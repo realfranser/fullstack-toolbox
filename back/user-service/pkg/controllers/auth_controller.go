@@ -49,20 +49,20 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	var user models.User
+	var loginRequest = &models.LoginRequest{}
 
-	if errCode, err := helper.ParseBody(r, user); err != nil {
+	if errCode, err := helper.ParseBody(r, loginRequest); err != nil {
 		helper.RespondWithError(w, errCode, err.Error())
 		return
 	}
 
-	userDetails, db := models.GetUserByEmail(*user.Email)
+	userDetails, db := models.GetUserByEmail(loginRequest.Email)
 	if db.Error != nil {
 		helper.RespondWithError(w,  http.StatusUnauthorized, db.Error.Error())
 		return
 	}
 
-	if passwordIsValid, msg := helper.VerifyPassword(*user.Password, *userDetails.Password); !passwordIsValid {
+	if passwordIsValid, msg := helper.VerifyPassword(loginRequest.Password, *userDetails.Password); !passwordIsValid {
 		helper.RespondWithError(w, http.StatusUnauthorized, msg)
 		return
 	}
@@ -79,7 +79,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 																											userDetails.User_id)
 
 	helper.UpdateAllTokens(token, refreshToken, userDetails.User_id)
-	userFound, db := models.GetUserByHexId(user.User_id)
+	userFound, db := models.GetUserByHexId(userDetails.User_id)
 	if db.Error != nil {
 		helper.RespondWithError(w, http.StatusInternalServerError, db.Error.Error())
 		return
