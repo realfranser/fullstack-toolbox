@@ -39,8 +39,8 @@ func MatchUserTypeToUid(r *http.Request, userId string) (err error) {
 }
 
 func HashPassword(password string) string{
-	bcrypt.GenerateFromPassword([]byte(password), 14)
-	return string(password)
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(hashedPassword)
 }
 
 func VerifyPassword(userPassword string, providedPassword string) (bool, string){
