@@ -1,4 +1,4 @@
-package models
+package interfaces
 
 type SignupResponse struct {
 	User_id	string	`json:"user_id"`

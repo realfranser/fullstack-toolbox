@@ -4,23 +4,20 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gorilla/mux"
+	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/interfaces"
 )
 
 func Paginate(r *http.Request) (offset int, pageSize int){
-	vars := mux.Vars(r)
-	queryPageSize := vars["pageSize"]
-	queryPage := vars["page"]
-	queryOffset := vars["offset"]
-	pageSizeResult, err := strconv.ParseInt(queryPageSize, 0, 0)
-	if err != nil || pageSize < 1{
+	var paginationParams = &interfaces.Pagination{}
+	var pageIndex int
+	ParseBody(r, paginationParams)
+	if paginationParams.PageSize == nil || paginationParams.PageSize < 1{
 		pageSize = 10
 	}
-	page, err := strconv.ParseInt(queryPage, 0, 0)
-	if err != nil || page < 1 {
-		page = 1
+	if paginationParams.PageIndex < 1 {
+		pageIndex = 1
 	}
-	offsetResult := (page -1) * pageSizeResult
+	offsetResult := (pageIndex -1) * pageSize
 	specificOffset, err := strconv.ParseInt(queryOffset, 0, 0)
 	if err == nil && specificOffset > 0 {
 		offsetResult = specificOffset

@@ -7,12 +7,13 @@ import (
 	"time"
 
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
+	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/interfaces"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
 )
 
 func Signup(w http.ResponseWriter, r *http.Request) {
 	var signupUser = &models.User{}
-	var signupResponse = &models.SignupResponse{}
+	var signupResponse = &interfaces.SignupResponse{}
 	if errCode, err := helper.ParseBody(r, signupUser); err != nil {
 		helper.RespondWithError(w, errCode, err.Error())
 		return
@@ -49,7 +50,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	var loginRequest = &models.LoginRequest{}
+	var loginRequest = &interfaces.LoginRequest{}
 
 	if errCode, err := helper.ParseBody(r, loginRequest); err != nil {
 		helper.RespondWithError(w, errCode, err.Error())

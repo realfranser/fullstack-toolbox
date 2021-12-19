@@ -14,7 +14,7 @@ import (
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	/* Param parsing and processing */
-	if err := helper.CheckUserType(r, "ADMIN"); err != nil {
+	if err := helper.CheckUserType(r, "admin"); err != nil {
 		helper.RespondWithError(w, http.StatusBadRequest, err.Error())
 	}
 	offset, pageSize := helper.Paginate(r)

@@ -30,7 +30,7 @@ func MatchUserTypeToUid(r *http.Request, userId string) (err error) {
 	userType := claims.User_type
 	err = nil
 
-	if userType == "USER" && uid != userId {
+	if userType == "user" && uid != userId {
 		err = errors.New("unauthorized to access this resource")
 		return err
 	}
