@@ -1,8 +1,10 @@
 package controllers
 
 import (
+	"context"
 	"net/http"
 	"strconv"
+	"time"
 
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
@@ -24,7 +26,8 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	}
 	/* Insert user in DB */
 	user := signupUser.CreateUser()
-	newUser, db := models.GetUserById(user.ID)
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	newUser, db := models.GetUserById(user.ID, ctx)
 	newUser.User_id = strconv.FormatUint(uint64(newUser.ID), 16)
 	/* Token generation */
 	token, refreshToken, _ := helper.GenerateAllTokens(
@@ -39,6 +42,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	newUser.Refresh_token = &refreshToken
 	/* Update user_id and tokens */
 	db.Save(&newUser)
+	defer cancel()
 
 	signupResponse.User_id = newUser.User_id
 	helper.RespondWithJSON(w, http.StatusCreated, signupResponse)

@@ -44,11 +44,9 @@ func GetAllUsers(offset int, pageSize int) []User {
 	return Users
 }
 
-func GetUserById(Id uint) (*User, *gorm.DB){
+func GetUserById(Id uint, ctx context.Context) (*User, *gorm.DB){
 	var getUser User
-	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	userDB := userDB.WithContext(ctx).Where("ID=?", Id).First(&getUser)
-	defer cancel()
 	return &getUser, userDB
 }
 

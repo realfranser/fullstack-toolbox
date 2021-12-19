@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
@@ -34,6 +36,8 @@ func GetUserById(w http.ResponseWriter, r *http.Request) {
 	if err := helper.MatchUserTypeToUid(r, userId); err != nil {
 		helper.RespondWithError(w, http.StatusBadRequest, err.Error())
 	}
-	userDatails, _ := models.GetUserById(uint(ID))
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	userDatails, _ := models.GetUserById(uint(ID), ctx)
+	defer cancel()
 	helper.RespondWithJSON(w, http.StatusOK, userDatails)
 }
