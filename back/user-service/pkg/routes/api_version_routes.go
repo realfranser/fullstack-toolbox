@@ -6,6 +6,5 @@ import (
 )
 
 var RegisterV1Routes = func(router *mux.Router) {
-	v1.RegisterAuthRoutes(router)
 	v1.RegisterUserRoutes(router)
 }

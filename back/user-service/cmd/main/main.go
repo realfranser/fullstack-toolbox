@@ -26,7 +26,14 @@ func main() {
   apiV1.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(http.StatusNotFound)
   })
-	routes.RegisterV1Routes(apiV1)
+	/* Login and signup v1 routes */
+	routes.RegisterAuthRoutes(apiV1)
+	/* handle secure v1 routes */
+	secureApiV1 := apiV1.PathPrefix("/secure").Subrouter()
+  secureApiV1.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        w.WriteHeader(http.StatusNotFound)
+  })
+	routes.RegisterV1Routes(secureApiV1)
 
 	srv := &http.Server{
 		Handler: r,
