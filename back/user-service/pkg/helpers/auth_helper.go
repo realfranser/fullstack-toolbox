@@ -4,37 +4,29 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func CheckUserType(r *http.Request, role string) (err error) {
-	vars := mux.Vars(r)
-	userType := vars["user_type"]
-	err = nil
+	userType := r.Header.Get("user_type")
 
+	err = nil
 	if userType != role {
 		err = errors.New("unauthorized to access this resource")
 		return err
 	}
-	return nil
+	return err
 }
 
 func MatchUserTypeToUid(r *http.Request, userId string) (err error) {
-	/* TODO: check ctx content */
-	var claims = &SignedDetails{}
-	ctx := r.Context()
-	ctx.Value(claims)
+	uid := r.Header.Get("uid")
+	userType := r.Header.Get("user_type")
 
-	uid := claims.User_id
-	userType := claims.User_type
 	err = nil
-
 	if userType == "user" && uid != userId {
 		err = errors.New("unauthorized to access this resource")
 		return err
 	}
-	err = CheckUserType(r, userType)
 	return err
 }
 

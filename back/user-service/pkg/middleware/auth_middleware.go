@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"context"
 	"net/http"
 
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
@@ -22,8 +21,11 @@ func Authenticate(next http.Handler) http.Handler{
 			return
 		}
 
-		defaultContext := context.Background()
-		ctx := context.WithValue(defaultContext, helper.SignedDetails{}, claims)
-		next.ServeHTTP(w, r.WithContext(ctx))
+		r.Header.Add("email", claims.Email)
+		r.Header.Add("first_name", claims.First_name)
+		r.Header.Add("last_name", claims.Last_name)
+		r.Header.Add("uid", claims.User_id)
+		r.Header.Add("user_type", claims.User_type)
+		next.ServeHTTP(w, r)
 	})
 }
