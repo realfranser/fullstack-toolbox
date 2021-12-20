@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -27,7 +26,8 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 	productId := vars["productId"]
 	ID, err := strconv.ParseInt(productId, 0, 0)
 	if err != nil {
-		fmt.Println("error while parsing")
+		utils.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		return
 	}
 	productDetails, _ := models.GetProductById(ID)
 	res, _ := json.Marshal(productDetails)
@@ -57,7 +57,8 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	productId := vars["productId"]
 	ID, err := strconv.ParseInt(productId, 0, 0)
 	if err != nil {
-		fmt.Println("error while parsing")
+		utils.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		return
 	}
 	product := models.DeleteProduct(ID)
 	res, _ := json.Marshal(product)
@@ -74,7 +75,8 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	productId := vars["productId"]
 	ID, err := strconv.ParseInt(productId, 0, 0)
 	if err != nil {
-		fmt.Println("error while parsing")
+		utils.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		return
 	}
 	productDetails, db := models.GetProductById(ID)
 	if updateProduct.Name != "" {
