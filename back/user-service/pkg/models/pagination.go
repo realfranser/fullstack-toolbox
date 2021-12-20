@@ -1,4 +1,7 @@
-package interfaces
+package models
+
+const DefaultPageSize = 10
+const DefaultPageIndex = 1
 
 type Pagination struct {
 	PageSize	int	`json:"page_size"`

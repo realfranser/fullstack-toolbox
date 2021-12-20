@@ -7,7 +7,6 @@ import (
 
 	"github.com/gorilla/mux"
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
-	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/interfaces"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
 )
 
@@ -17,12 +16,12 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		helper.RespondWithError(w, http.StatusBadRequest, err.Error())
 		return
 	}
-	var usersRequest = &interfaces.GetUsersRequest{}
+	var usersRequest = &models.GetUsersRequest{}
 	helper.ParseBody(r, usersRequest)
 	offset, pageSize := helper.Paginate(&usersRequest.Pagination)
 	getUsers := models.GetAllUsers(offset, pageSize)
 
-	var userList interfaces.UserList
+	var userList models.UserList
 	userList.Items = getUsers
 	helper.RespondWithJSON(w, http.StatusOK, userList)
 }

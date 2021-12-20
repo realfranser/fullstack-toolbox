@@ -24,6 +24,14 @@ type User struct {
 	User_id					string		`json:"user_id"`
 }
 
+type UserList struct {
+	Items 	[]User	`json:"items"`
+}
+
+type GetUsersRequest struct {
+	Pagination	Pagination	`json:"pagination"`
+}
+
 func init() {
 	config.Connect()
 	userDB = config.GetDB()
