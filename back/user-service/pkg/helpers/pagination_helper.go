@@ -1,27 +1,26 @@
 package helpers
 
 import (
-	"net/http"
-	"strconv"
-
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/interfaces"
 )
 
-func Paginate(r *http.Request) (offset int, pageSize int){
-	var paginationParams = &interfaces.Pagination{}
-	var pageIndex int
-	ParseBody(r, paginationParams)
-	if paginationParams.PageSize == nil || paginationParams.PageSize < 1{
-		pageSize = 10
+const defaultPageSize = 10
+const defaultPageIndex = 1
+
+func Paginate(paginationParams *interfaces.Pagination) (offset int, pageSize int){
+	/* Check for null or invalid page size values */
+	if paginationParams.PageSize <= 0 {
+		paginationParams.PageSize = defaultPageSize
 	}
+	/* Check for null or invalid page index values */
 	if paginationParams.PageIndex < 1 {
-		pageIndex = 1
+		paginationParams.PageIndex = defaultPageIndex
 	}
-	offsetResult := (pageIndex -1) * pageSize
-	specificOffset, err := strconv.ParseInt(queryOffset, 0, 0)
-	if err == nil && specificOffset > 0 {
-		offsetResult = specificOffset
+	/* If the offset is not specified, it will be determined by the page size and the page index */
+	offsetResult := (paginationParams.PageIndex -1) * paginationParams.PageSize
+	if paginationParams.Offset > 0 {
+		offsetResult = paginationParams.Offset
 	}
 
-	return int(offsetResult), int(pageSizeResult)
+	return offsetResult, paginationParams.PageSize
 }
