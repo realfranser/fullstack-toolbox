@@ -24,10 +24,6 @@ type User struct {
 	User_id					string		`json:"user_id"`
 }
 
-type UserList struct {
-	Items 	[]User	`json:"items"`
-}
-
 func init() {
 	config.Connect()
 	userDB = config.GetDB()
