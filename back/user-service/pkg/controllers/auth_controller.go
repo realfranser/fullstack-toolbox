@@ -80,7 +80,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 																											userDetails.User_id)
 
 	helper.UpdateAllTokens(token, refreshToken, userDetails.User_id)
-	userFound, db := models.GetUserByHexId(userDetails.User_id)
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	userFound, db := models.GetUserByHexId(userDetails.User_id, ctx)
+	defer cancel()
 	if db.Error != nil {
 		helper.RespondWithError(w, http.StatusInternalServerError, db.Error.Error())
 		return

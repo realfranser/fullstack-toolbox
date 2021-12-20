@@ -62,7 +62,7 @@ func GenerateAllTokens(email string,
 
 func UpdateAllTokens(signedToken string, signedRefreshToken string, userId string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-	updateUser, db := models.GetUserByHexId(userId)
+	updateUser, db := models.GetUserByHexId(userId, ctx)
 	defer cancel()
 	if db.Error != nil {
 		log.Panic(db.Error.Error())

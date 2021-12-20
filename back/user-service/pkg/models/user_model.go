@@ -65,10 +65,8 @@ func GetUserByEmail(email string) (*User, *gorm.DB){
 	return &getUser, userDB
 }
 
-func GetUserByHexId(userID string) (*User, *gorm.DB){
+func GetUserByHexId(userID string, ctx context.Context) (*User, *gorm.DB){
 	var getUser User
-	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	userDB := userDB.WithContext(ctx).Where("user_id=?", userID).First(&getUser)
-	defer cancel()
 	return &getUser, userDB
 }

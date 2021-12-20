@@ -3,7 +3,6 @@ package controllers
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -31,18 +30,13 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 func GetUserById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userId := vars["userId"]
-	ID, err := strconv.ParseInt(userId, 0, 0)
-	if err != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, err.Error())
-		return
-	}
 
 	if err := helper.MatchUserTypeToUid(r, userId); err != nil {
 		helper.RespondWithError(w, http.StatusBadRequest, err.Error())
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-	userDatails, _ := models.GetUserById(uint(ID), ctx)
+	userDatails, _ := models.GetUserByHexId(userId, ctx)
 	defer cancel()
 	helper.RespondWithJSON(w, http.StatusOK, userDatails)
 }
