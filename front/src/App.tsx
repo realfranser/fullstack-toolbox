@@ -1,10 +1,8 @@
-import { Counter } from './Counter'
+import React from 'react';
+import Home from './pages/Home';
 
-export const App = () => {
-  return (
-    <>
-      <h1>React TypeScript Webpack Starter Template</h1>
-      <Counter />
-    </>
-  )
-}
+const App = () => {
+  return <Home />;
+};
+
+export default App;
