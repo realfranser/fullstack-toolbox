@@ -1,10 +1,11 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
+import { Navbar, Announcement, Slider } from '../components';
 
 const Home = () => {
   return (
     <div className="container">
+      <Announcement />
       <Navbar />
+      <Slider />
     </div>
   );
 };
