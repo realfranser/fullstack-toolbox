@@ -1,6 +1,7 @@
 export const colors = {
   navbar: 'white',
-  background: 'coral',
+  background: 'white',
+  slider: 'coral',
   announcement: 'teal',
   shadow: '#fff7f7',
   primaryFont: 'black',
