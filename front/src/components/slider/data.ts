@@ -26,14 +26,14 @@ export const sliderItems: ISliderItemList = {
     },
     {
       id: 2,
-      img: `${imagePath}/winter_sneakers.jpg`,
+      img: `${imagePath}/winter_sneakers.jpeg`,
       title: 'Winter Sneaker',
       description: 'This is the best winter sneaker for 2022',
       bg: `${background}`,
     },
     {
       id: 3,
-      img: `${imagePath}/running_sneakers.jpg`,
+      img: `${imagePath}/running_sneakers.jpeg`,
       title: 'Running Sneaker',
       description: 'This is the best running sneaker for 2022',
       bg: `${background}`,
