@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { colors } from '../styles/colors';
+
+import { colors } from '../../styles/colors';
 
 const { announcement, secondaryFont } = colors;
 
-const Container = styled.div`
+export const Container = styled.div`
   height: 30px;
   background-color: ${announcement};
   display: flex;
@@ -13,7 +14,3 @@ const Container = styled.div`
   font-weight: 500;
   color: ${secondaryFont};
 `;
-
-export const Announcement = () => {
-  return <Container>Super Deal! Free Shipping on Orders Over $50</Container>;
-};
