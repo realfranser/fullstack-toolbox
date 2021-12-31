@@ -7,8 +7,9 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
-  background-color: ${background};
   position: relative;
+  background-color: ${background};
+  overflow: hidden;
 `;
 
 interface ArrowProps {
@@ -34,10 +35,15 @@ export const Arrow = styled.div`
   z-index: 2;
 `;
 
+interface WrapperProps {
+  slideIndex: number;
+}
+
 export const Wrapper = styled.div`
   height: 100%;
   display: flex;
-  transform: translateX(0vw);
+  transition: all 1.5s ease;
+  transform: translateX(${(props: WrapperProps) => props.slideIndex * -100}vw);
 `;
 
 interface SlideProps {
@@ -72,7 +78,7 @@ export const Title = styled.h1`
 
 export const Description = styled.p`
   margin: 50px 0px;
-  font-size: 20;
+  font-size: 20px;
   font-weight: 500;
   letter-spacing: 3px;
 `;

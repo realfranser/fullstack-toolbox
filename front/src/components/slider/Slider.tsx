@@ -1,60 +1,50 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
 import {
-  Container,
-  Button,
   Arrow,
+  Button,
+  Container,
   Description,
+  Image,
   ImgContainer,
   InfoContainer,
   Slide,
   Title,
   Wrapper,
 } from './styles';
+import { sliderItems, ISliderItem } from './data';
+import { useState } from 'react';
 
 export const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const handleClick = (direction: string) => {};
+  const handleClick = (direction: string) => {
+    if (direction === 'left') {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+      return;
+    }
+
+    setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+  };
 
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick('left')}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper>
-        <Slide>
-          <ImgContainer>
-            <Image src="src/images/summer_sneakers.jpg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>Summer Sneakers</Title>
-            <Description>This is the best summer sneaker for 2022</Description>
-            <Button>Shop Now</Button>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImgContainer>
-            <Image src="src/images/winter_sneakers.jpeg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>Winter Sneakers</Title>
-            <Description>This is the best winter sneaker for 2022</Description>
-            <Button>Shop Now</Button>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImgContainer>
-            <Image src="src/images/running_sneakers.jpeg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>Running Sneakers</Title>
-            <Description>
-              This is the running summer sneaker for 2022
-            </Description>
-            <Button>Shop Now</Button>
-          </InfoContainer>
-        </Slide>
+      <Wrapper slideIndex={slideIndex}>
+        {sliderItems.items.map((item: ISliderItem) => (
+          <Slide bg={item.bg} key={item.id}>
+            <ImgContainer>
+              <Image src={item.img} />
+            </ImgContainer>
+            <InfoContainer>
+              <Title>{item.title}</Title>
+              <Description>{item.description}</Description>
+              <Button>SHOP NOW</Button>
+            </InfoContainer>
+          </Slide>
+        ))}
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick('right')}>
         <ArrowRightOutlined />

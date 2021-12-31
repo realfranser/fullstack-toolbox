@@ -1,4 +1,5 @@
 import { Navbar, Announcement, Slider } from '../components';
+import { Categories } from '../components/categories/Categories';
 
 const Home = () => {
   return (
@@ -6,6 +7,7 @@ const Home = () => {
       <Announcement />
       <Navbar />
       <Slider />
+      <Categories />
     </div>
   );
 };
