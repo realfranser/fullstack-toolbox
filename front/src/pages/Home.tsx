@@ -1,6 +1,11 @@
-import { Navbar, Announcement, Slider } from '../components';
-import { Categories } from '../components/categories/Categories';
-import { Products } from '../components/products';
+import {
+  Announcement,
+  Categories,
+  Navbar,
+  Newsletter,
+  Products,
+  Slider,
+} from '../components';
 
 const Home = () => {
   return (
@@ -10,6 +15,7 @@ const Home = () => {
       <Slider />
       <Categories />
       <Products />
+      <Newsletter />
     </div>
   );
 };
