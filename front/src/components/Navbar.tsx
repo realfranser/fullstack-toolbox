@@ -1,7 +1,9 @@
 import { Badge } from '@material-ui/core';
 import { Search, ShoppingCartOutlined } from '@material-ui/icons';
-import React from 'react';
 import styled from 'styled-components';
+import { colors } from '../styles/colors';
+
+const { buttonFont } = colors;
 
 const Container = styled.div`
   height: 60px;
@@ -66,7 +68,7 @@ export const Navbar = () => {
           <Language>EN</Language>
           <SearchContainer>
             <Input />
-            <Search style={{ color: 'gray', fontSize: 16 }} />
+            <Search style={{ color: buttonFont, fontSize: 16 }} />
           </SearchContainer>
         </Left>
         <Center>
