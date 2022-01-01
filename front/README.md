@@ -1,28 +1,10 @@
-# My Create React App
+# Front
 
-Basic template for react developers who use these technologies:
+This is the client fronted developed with React + Typescript
 
- > Typescript
- > Eslint
- > Webpack
+Clothing e-commerce style
 
-## Download the starter kit
+## Docu
 
-### SSH
-git clone git@github.com:realfranser/my-create-react-app.git
+> react-router-dom v5 to v6 migration: https://github.com/remix-run/react-router/blob/f59ee5488bc343cf3c957b7e0cc395ef5eb572d2/docs/advanced-guides/migrating-5-to-6.md#relative-routes-and-links
 
-### HTTPS
-git clone https://github.com/realfranser/my-create-react-app.git
-
-## Install dependencies
-
-cd my-create-react-app &&
-yarn
-
-## Run dev server
-
-yarn start
-
-## Build
-
-yarn build
