@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import { colors } from '../../styles/colors';
+import { mobile } from '../../styles/responsive';
 
 const { shadow, background } = colors;
 
@@ -10,6 +12,7 @@ export const Container = styled.div`
   position: relative;
   background-color: ${background};
   overflow: hidden;
+  ${mobile({ display: 'none' })}
 `;
 
 interface ArrowProps {

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import { colors } from '../../styles/colors';
+import { mobile } from '../../styles/responsive';
 
 const { shadow, buttonFont } = colors;
 
@@ -7,6 +9,7 @@ export const Container = styled.div`
   display: flex;
   padding: 20px;
   justify-content: space-between;
+  ${mobile({ padding: '0px', flexDirection: 'column' })}
 `;
 
 export const CategoryItem = styled.div`

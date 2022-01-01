@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { colors } from '../../styles/colors';
+import { mobile } from '../../styles/responsive';
 
 const { announcement, background, secondaryBackground } = colors;
 
@@ -17,10 +18,11 @@ export const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-export const Desc = styled.div`
+export const Description = styled.div`
   font-size: 24px;
   font-weight: 300;
   margin-bottom: 20px;
+  ${mobile({ textAlign: 'center' })}
 `;
 
 export const InputContainer = styled.div`
@@ -30,6 +32,7 @@ export const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   border: 1px solid lightgray;
+  ${mobile({ width: '80%' })}
 `;
 
 export const Input = styled.input`

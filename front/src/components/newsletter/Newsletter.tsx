@@ -3,7 +3,7 @@ import { Send } from '@material-ui/icons';
 import {
   Container,
   Button,
-  Desc,
+  Description,
   Input,
   InputContainer,
   Title,
@@ -13,7 +13,7 @@ export const Newsletter = () => {
   return (
     <Container>
       <Title>Newsletter</Title>
-      <Desc>Get timely updates from your favorite products.</Desc>
+      <Description>Get timely updates from your favorite products.</Description>
       <InputContainer>
         <Input placeholder="Your email" />
         <Button>
