@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import { Announcement, Footer, Navbar, Newsletter } from '../components';
 import { mobile } from '../styles/responsive';
+import { colors } from '../styles/colors';
+
+const { announcement, background, shadow } = colors;
 
 const Container = styled.div``;
 
@@ -60,11 +63,15 @@ const FilterTitle = styled.span`
   font-weight: 200;
 `;
 
+interface FilterColorProps {
+  bg: string;
+}
+
 const FilterColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: ${(props) => props.color};
+  background-color: ${(props: FilterColorProps) => props.bg};
   margin: 0px 5px;
   cursor: pointer;
 `;
@@ -94,7 +101,7 @@ const Amount = styled.span`
   width: 30px;
   height: 30px;
   border-radius: 10px;
-  border: 1px solid teal;
+  border: 1px solid ${announcement};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,13 +110,13 @@ const Amount = styled.span`
 
 const Button = styled.button`
   padding: 15px;
-  border: 2px solid teal;
-  background-color: white;
+  border: 2px solid ${announcement};
+  background-color: ${background};
   cursor: pointer;
   font-weight: 500;
 
   &:hover {
-    background-color: #f8f4f4;
+    background-color: ${shadow};
   }
 `;
 
@@ -135,9 +142,9 @@ export const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
+              <FilterColor bg="black" />
+              <FilterColor bg="darkblue" />
+              <FilterColor bg="gray" />
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
@@ -152,9 +159,9 @@ export const Product = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
+              <Remove style={{ cursor: 'pointer' }} />
               <Amount>1</Amount>
-              <Add />
+              <Add style={{ cursor: 'pointer' }} />
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </AddContainer>
