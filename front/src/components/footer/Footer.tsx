@@ -22,28 +22,32 @@ import {
   ContactItem,
   Payment,
 } from './styles';
+import { media } from '../../styles/colors';
+
+const { facebook, instagram, twitter, pinterest } = media;
 
 export const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>LAMA.</Logo>
+        <Logo>Toolbox</Logo>
         <Desc>
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don’t look even slightly believable.
+          Fullstack toolbox is a project that intends to create in unprecedented
+          time a MVP for any kind of e-commerce site. The main technologies used
+          are: Typescript (react + express), Node, Golang(mux + gorm), Docker,
+          AWS and Stripe.
         </Desc>
         <SocialContainer>
-          <SocialIcon color="3B5999">
+          <SocialIcon color={facebook}>
             <Facebook />
           </SocialIcon>
-          <SocialIcon color="E4405F">
+          <SocialIcon color={instagram}>
             <Instagram />
           </SocialIcon>
-          <SocialIcon color="55ACEE">
+          <SocialIcon color={twitter}>
             <Twitter />
           </SocialIcon>
-          <SocialIcon color="E60023">
+          <SocialIcon color={pinterest}>
             <Pinterest />
           </SocialIcon>
         </SocialContainer>
@@ -66,14 +70,14 @@ export const Footer = () => {
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-          <Room style={{ marginRight: '10px' }} /> 622 Dixie Path , South
-          Tobinchester 98336
+          <Room style={{ marginRight: '10px' }} /> Paseo de la Castellana, 77,
+          Madrid, Spain
         </ContactItem>
         <ContactItem>
-          <Phone style={{ marginRight: '10px' }} /> +1 234 56 78
+          <Phone style={{ marginRight: '10px' }} /> +34 630 820 734
         </ContactItem>
         <ContactItem>
-          <MailOutline style={{ marginRight: '10px' }} /> contact@lama.dev
+          <MailOutline style={{ marginRight: '10px' }} /> fullstack@toolbox.com
         </ContactItem>
         <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>

@@ -10,3 +10,10 @@ export const colors = {
   buttonFont: 'grey',
   notification: '#3f51b5',
 };
+
+export const media = {
+  facebook: '#3B5999',
+  instagram: '#E4405F',
+  twitter: '#55ACEE',
+  pinterest: '#E60023',
+};
