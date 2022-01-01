@@ -1,8 +1,8 @@
 import React from 'react';
-import { Product } from './pages';
+import { Cart } from './pages';
 
 const App = () => {
-  return <Product />;
+  return <Cart />;
 };
 
 export default App;
