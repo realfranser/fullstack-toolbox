@@ -6,7 +6,7 @@ import {
   Products,
   Slider,
   Footer,
-} from '../components';
+} from '../../components';
 
 export const Home = () => {
   return (

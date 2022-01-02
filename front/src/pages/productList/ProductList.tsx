@@ -1,44 +1,22 @@
 //import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import styled from 'styled-components';
+
 import {
   Navbar,
   Announcement,
   Newsletter,
   Footer,
   Products,
-} from '../components';
-import { mobile } from '../styles/responsive';
-
-const Container = styled.div``;
-
-const Title = styled.h1`
-  margin: 20px;
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Filter = styled.div`
-  margin: 20px;
-  ${mobile({ width: '0px 20px', display: 'flex', flexDirection: 'column' })}
-`;
-
-const FilterText = styled.span`
-  font-size: 20px;
-  font-weight: 600;
-  margin-right: 20px;
-  ${mobile({ marginRight: '0px' })}
-`;
-
-const Select = styled.select`
-  padding: 10px;
-  margin-right: 20px;
-  ${mobile({ margin: '10px 0px' })}
-`;
-const Option = styled.option``;
+} from '../../components';
+import {
+  Container,
+  Filter,
+  FilterContainer,
+  FilterText,
+  Option,
+  Select,
+  Title,
+} from './styles';
 
 /*
 interface ProductListProps {
@@ -46,21 +24,24 @@ interface ProductListProps {
 }
 */
 
-interface ProductListState {
+interface ProductListFilters {
   color?: string;
   size?: string;
-  sort?: string;
+  sort: string;
 }
 
 export const ProductList = () => {
   //const location = useLocation();
   //const { category } = location.state as ProductListProps;
 
-  const [state, setState] = useState<ProductListState>();
+  const defaultFilters = {
+    sort: 'Newest',
+  };
+  const [filters, setFilters] = useState<ProductListFilters>(defaultFilters);
 
   const handleFilters = (e: React.FormEvent<HTMLSelectElement>) => {
-    setState({
-      ...state,
+    setFilters({
+      ...filters,
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
@@ -73,7 +54,7 @@ export const ProductList = () => {
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
-          <Select name="color" value={state?.color} onSubmit={handleFilters}>
+          <Select name="color" onChange={handleFilters}>
             <Option disabled>Color</Option>
             <Option>White</Option>
             <Option>Black</Option>
