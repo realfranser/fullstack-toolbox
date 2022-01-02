@@ -17,10 +17,10 @@ const App = () => {
         <Route path="cart" element={<Cart />} />
         {/*TODO: Change false to user (from redux*/}
         <Route path="login" element={false ? <Navigate to="/" /> : <Login />} />
-        {/*TODO: Change false to user (from redux*/}
+        {/*TODO: Change true to user (from redux*/}
         <Route
           path="register"
-          element={false ? <Navigate to="/" /> : <Register />}
+          element={true ? <Navigate to="/" /> : <Register />}
         />
       </Routes>
     </Router>
