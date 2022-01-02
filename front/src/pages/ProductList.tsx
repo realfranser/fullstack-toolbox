@@ -1,3 +1,5 @@
+//import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import styled from 'styled-components';
 import {
   Navbar,
@@ -38,7 +40,31 @@ const Select = styled.select`
 `;
 const Option = styled.option``;
 
+/*
+interface ProductListProps {
+  category: string;
+}
+*/
+
+interface ProductListState {
+  color?: string;
+  size?: string;
+  sort?: string;
+}
+
 export const ProductList = () => {
+  //const location = useLocation();
+  //const { category } = location.state as ProductListProps;
+
+  const [state, setState] = useState<ProductListState>();
+
+  const handleFilters = (e: React.FormEvent<HTMLSelectElement>) => {
+    setState({
+      ...state,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  };
+
   return (
     <Container>
       <Navbar />
@@ -47,10 +73,8 @@ export const ProductList = () => {
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
-          <Select>
-            <Option disabled selected>
-              Color
-            </Option>
+          <Select name="color" value={state?.color} onSubmit={handleFilters}>
+            <Option disabled>Color</Option>
             <Option>White</Option>
             <Option>Black</Option>
             <Option>Red</Option>
@@ -58,10 +82,8 @@ export const ProductList = () => {
             <Option>Yellow</Option>
             <Option>Green</Option>
           </Select>
-          <Select>
-            <Option disabled selected>
-              Size
-            </Option>
+          <Select name="size" onChange={handleFilters}>
+            <Option disabled>Size</Option>
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>
@@ -71,8 +93,8 @@ export const ProductList = () => {
         </Filter>
         <Filter>
           <FilterText>Sort Products:</FilterText>
-          <Select>
-            <Option selected>Newest</Option>
+          <Select name="sort" onChange={handleFilters}>
+            <Option>Newest</Option>
             <Option>Price (asc)</Option>
             <Option>Price (desc)</Option>
           </Select>
