@@ -9,6 +9,7 @@ import {
   Pagination,
   Products,
 } from '../../components';
+import { IFetchProductListParams } from '../../components/products/services';
 import {
   Container,
   Filter,
@@ -34,6 +35,7 @@ interface ProductListFilters {
 export const ProductList = () => {
   //const location = useLocation();
   //const { category } = location.state as ProductListProps;
+  const category = 'summer';
 
   const defaultFilters = {
     sort: 'Newest',
@@ -82,7 +84,7 @@ export const ProductList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products />
+      <Products props={} category={category} />
       <Pagination />
       <Newsletter />
       <Footer />

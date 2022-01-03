@@ -1,13 +1,6 @@
+import { IProductList } from './services';
+
 const imagePath = 'src/images/products';
-
-export interface IProduct {
-  id: number;
-  img: string;
-}
-
-export interface IProductList {
-  items: IProduct[];
-}
 
 export const productList: IProductList = {
   items: [
@@ -44,4 +37,7 @@ export const productList: IProductList = {
       img: `${imagePath}/img_8.png`,
     },
   ],
+  pagination: {
+    pageCount: 8,
+  },
 };
