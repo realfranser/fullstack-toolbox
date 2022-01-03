@@ -46,7 +46,7 @@ export const Arrow = styled.button`
   }
 `;
 
-export const CurrenPage = styled.div`
+export const CurrenPage = styled.form`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +65,7 @@ export const CurrentPageInput = styled.input`
   outline: transparent solid 2px;
   outline-offset: 2px;
   position: relative;
-  font-size: 0.75rem;
+  font-size: inherit;
   height: 1.5rem;
   padding-inline-start: 0.5rem;
   padding-inline-end: 0.5rem;
@@ -74,6 +74,10 @@ export const CurrentPageInput = styled.input`
   border-style: solid;
   background: inherit;
   max-width: 50px;
+  :: -webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 export const MaxPage = styled.div`
@@ -109,7 +113,8 @@ export const MaxPageButton = styled.button`
   font-weight: 600;
   height: 1.6rem;
   min-width: 50px;
-  font-size: 0.75rem;
+  font-size: inherit;
+  letter-spacing: 2px;
   padding-inline-start: 0.5rem;
   padding-inline-end: 0.5rem;
   background: ${shadow};
