@@ -6,6 +6,7 @@ import {
   Announcement,
   Newsletter,
   Footer,
+  Pagination,
   Products,
 } from '../../components';
 import {
@@ -82,6 +83,7 @@ export const ProductList = () => {
         </Filter>
       </FilterContainer>
       <Products />
+      <Pagination />
       <Newsletter />
       <Footer />
     </Container>

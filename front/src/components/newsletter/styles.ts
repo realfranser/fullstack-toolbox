@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { colors } from '../../styles/colors';
-import { mobile } from '../../styles/responsive';
+import { colors, mobile, transitions } from '../../styles';
 
 const { announcement, background, secondaryBackground } = colors;
+const { darkerGradient } = transitions;
 
 export const Container = styled.div`
   height: 60vh;
@@ -48,7 +48,9 @@ export const Button = styled.button`
   color: ${background};
   cursor: pointer;
   &:hover {
-    background-color: ${announcement};
-    transform: scale(1.1);
+    background-image: linear-gradient(
+      rgba(0, 0, 0, ${darkerGradient}),
+      rgba(0, 0, 0, ${darkerGradient})
+    );
   }
 `;

@@ -1,11 +1,11 @@
 import {
   Announcement,
   Categories,
+  Footer,
   Navbar,
   Newsletter,
   Products,
   Slider,
-  Footer,
 } from '../../components';
 
 export const Home = () => {
