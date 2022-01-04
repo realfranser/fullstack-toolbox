@@ -45,10 +45,10 @@ export const Pagination = () => {
     canPrevPage: false,
   };
   const [state, setState] = useState(defaultState);
+  const [currentPage, setCurrentPage] = useState(defaultState.pageIndex);
 
   const back = () => {
     if (!state.canPrevPage) {
-      console.log('There is no BACK from the first page');
       return;
     }
 
@@ -61,11 +61,11 @@ export const Pagination = () => {
       canPrevPage: canPrevPage,
       canNextPage: true,
     });
+    setCurrentPage(newPageIndex);
   };
 
   const forward = () => {
     if (!state.canNextPage) {
-      console.log('There is no FORWARD from this last page');
       return;
     }
 
@@ -78,12 +78,11 @@ export const Pagination = () => {
       canPrevPage: true,
       canNextPage: canNextPage,
     });
+    setCurrentPage(newPageIndex);
   };
 
   const maxPage = () => {
-    if (state.pageIndex === state.pageCount) {
-      /* REVIEW: if (!canNextPage) */
-      console.log('You are already in the last page');
+    if (!state.canNextPage) {
       return;
     }
 
@@ -93,6 +92,13 @@ export const Pagination = () => {
       canPrevPage: true,
       canNextPage: false,
     });
+    setCurrentPage(state.pageCount);
+  };
+
+  const changePageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.currentTarget.value);
+    if (value === NaN) return;
+    setCurrentPage(value);
   };
 
   const changeCurrentPage = (e: React.FormEvent<HTMLFormElement>) => {
@@ -101,7 +107,6 @@ export const Pagination = () => {
     const inputElement = e.currentTarget[0] as HTMLInputElement;
     let newPageIndex = parseInt(inputElement.value);
     if (state.pageIndex === newPageIndex) {
-      console.log('You are already in the last page');
       return;
     }
     if (newPageIndex < 1) newPageIndex = 1;
@@ -125,7 +130,8 @@ export const Pagination = () => {
           type="number"
           min="1"
           max={state.pageCount}
-          defaultValue={state.pageIndex}
+          value={currentPage}
+          onChange={changePageInput}
         ></CurrentPageInput>
       </CurrenPage>
       <MaxPage>
