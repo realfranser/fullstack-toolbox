@@ -1,4 +1,4 @@
-//import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import {
@@ -7,9 +7,9 @@ import {
   Newsletter,
   Footer,
   Pagination,
-  Products,
+  //Products,
 } from '../../components';
-import { IFetchProductListParams } from '../../components/products/services';
+//import { IFetchProductListParams } from '../../components/products/services';
 import {
   Container,
   Filter,
@@ -19,41 +19,38 @@ import {
   Select,
   Title,
 } from './styles';
-
-/*
-interface ProductListProps {
-  category: string;
-}
-*/
-
-interface ProductListFilters {
-  color?: string;
-  size?: string;
-  sort: string;
-}
+import { DEFAULT_CATEGORY } from './data';
+import { IFetchProductListParams } from '../../components/products/services';
 
 export const ProductList = () => {
-  //const location = useLocation();
-  //const { category } = location.state as ProductListProps;
-  const category = 'summer';
+  let { category } = useParams();
+  if (category === undefined) category = DEFAULT_CATEGORY;
 
-  const defaultFilters = {
-    sort: 'Newest',
+  const defaultProductListParams: IFetchProductListParams = {
+    sort: 'newest',
+    pagination: {
+      pageIndex: 1,
+      pageSize: 12,
+    },
   };
-  const [filters, setFilters] = useState<ProductListFilters>(defaultFilters);
+  const [
+    productListParams,
+    setProductListParams,
+  ] = useState<IFetchProductListParams>(defaultProductListParams);
 
   const handleFilters = (e: React.FormEvent<HTMLSelectElement>) => {
-    setFilters({
-      ...filters,
+    setProductListParams({
+      ...productListParams,
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
 
+  console.log('This is the category value: ' + category);
   return (
     <Container>
       <Navbar />
       <Announcement />
-      <Title>Dresses</Title>
+      <Title>{category.toUpperCase()}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -84,7 +81,7 @@ export const ProductList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products props={} category={category} />
+      {/*<Products props={} category={category} />*/}
       <Pagination />
       <Newsletter />
       <Footer />
