@@ -16,9 +16,9 @@ export interface IProductList {
 }
 
 export interface IFetchProductListParams {
-  color: string;
-  size: string;
-  sort: string;
+  color?: 'Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow';
+  size?: 'XS' | 'S' | 'M' | 'L' | 'XL';
+  sort: 'asc' | 'desc' | 'newest';
   pagination: IPaginationRequest;
 }
 
