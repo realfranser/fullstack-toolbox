@@ -120,7 +120,6 @@ export const Pagination = () => {
     });
   };
 
-  console.log(state);
   return (
     <Container>
       <Arrow onClick={back}>Back</Arrow>
