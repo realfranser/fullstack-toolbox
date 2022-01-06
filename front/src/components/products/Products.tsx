@@ -4,15 +4,16 @@ import {
   ShoppingCartOutlined,
 } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Circle, Container, Icon, Product, Info, Image } from './styles';
-import { productList } from './data';
+import { fetchProductList } from './services';
 import {
-  fetchProductList,
+  defaultProductList,
   IFetchProductListParams,
   IProduct,
   IProductList,
-} from './services';
+} from './data';
 
 export const Products = ({
   props,
@@ -21,20 +22,7 @@ export const Products = ({
   props: IFetchProductListParams;
   category: string;
 }) => {
-  let initialProductList: IProductList = productList;
-  fetchProductList(props, category)
-    .then((productList) => {
-      initialProductList = productList;
-    })
-    .catch(() => {
-      alert('Error getting all the products');
-      initialProductList = productList;
-    })
-    .finally(() => {
-      initialProductList = productList;
-    });
-
-  const [products, setProducts] = useState<IProductList>(initialProductList);
+  const [products, setProducts] = useState<IProductList>(defaultProductList);
 
   useEffect(() => {
     fetchProductList(props, category)
@@ -57,7 +45,9 @@ export const Products = ({
               <ShoppingCartOutlined />
             </Icon>
             <Icon>
-              <SearchOutlined />
+              <Link to={`/product/${item.id}`}>
+                <SearchOutlined />
+              </Link>
             </Icon>
             <Icon>
               <FavoriteBorderOutlined />

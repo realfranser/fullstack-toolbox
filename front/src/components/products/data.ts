@@ -1,40 +1,59 @@
-import { IProductList } from './services';
+import { IPaginationRequest, IPaginationResponse } from '../pagination';
+import { API } from '../../constants/services';
 
-const imagePath = 'src/images/products';
+const IMAGE_PATH = 'src/images/products';
+export const SERVICE_URL = API.V1_PRODUCTS;
 
-export const productList: IProductList = {
+export interface IProduct {
+  id: number;
+  img: string;
+}
+
+export interface IProductList {
+  items: IProduct[];
+  pagination: IPaginationResponse;
+}
+
+export interface IFetchProductListParams {
+  color?: 'Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow';
+  size?: 'XS' | 'S' | 'M' | 'L' | 'XL';
+  sort: 'asc' | 'desc' | 'newest';
+  pagination: IPaginationRequest;
+}
+
+export const defaultProductList: IProductList = {
   items: [
     {
       id: 1,
-      img: `${imagePath}/img_1.png`,
+      img: `${IMAGE_PATH}/img_1.png`,
     },
     {
       id: 2,
-      img: `${imagePath}/img_2.png `,
+      img: `${IMAGE_PATH}/img_2.png `,
     },
     {
       id: 3,
-      img: `${imagePath}/img_3.png`,
+      img: `${IMAGE_PATH}/img_3.png`,
     },
     {
       id: 4,
-      img: `${imagePath}/img_4.png`,
+      img: `${IMAGE_PATH}/img_4.png`,
     },
     {
       id: 5,
-      img: `${imagePath}/img_5.png`,
+      img: `${IMAGE_PATH}/img_5.png`,
     },
     {
       id: 6,
-      img: `${imagePath}/img_6.png`,
+      img: `${IMAGE_PATH}/img_6.png`,
     },
     {
       id: 7,
-      img: `${imagePath}/img_7.png`,
+      img: `${IMAGE_PATH}/img_7.png`,
     },
     {
       id: 8,
-      img: `${imagePath}/img_8.png`,
+      img: `${IMAGE_PATH}/img_8.png`,
     },
   ],
   pagination: {
