@@ -20,7 +20,7 @@ import {
   Title,
 } from './styles';
 import { DEFAULT_CATEGORY } from './data';
-import { IFetchProductListParams } from '../../components/products/services';
+import { IFetchProductListParams } from '../../components/products/data';
 
 export const ProductList = () => {
   let { category } = useParams();
@@ -45,7 +45,6 @@ export const ProductList = () => {
     });
   };
 
-  console.log('This is the category value: ' + category);
   return (
     <Container>
       <Navbar />

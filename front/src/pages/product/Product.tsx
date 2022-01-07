@@ -36,7 +36,7 @@ export const Product = () => {
   let { id } = useParams();
   if (id === undefined) id = DEFAULT_PRODUCT_ID;
   const productId = parseInt(id);
-  const defaultProductOptions = { amount: 0 };
+  const defaultProductOptions = { amount: 1 };
 
   const [product, setProduct] = useState<IProduct>(DEFAULT_PRODUCT);
   const [options, setOptions] = useState<ProductOptions>(defaultProductOptions);
@@ -62,7 +62,7 @@ export const Product = () => {
   };
 
   const handleDecreaseAmount = () => {
-    if (options.amount < 1) return;
+    if (options.amount < 2) return;
     setOptions({
       ...options,
       amount: options.amount - 1,
