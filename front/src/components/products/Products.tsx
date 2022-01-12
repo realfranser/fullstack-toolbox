@@ -30,7 +30,7 @@ export const Products = ({
         setProducts(productList);
       })
       .catch(() => {
-        alert('Error getting all the products');
+        console.log('Error getting all the products');
       });
   }, [props, category]);
 

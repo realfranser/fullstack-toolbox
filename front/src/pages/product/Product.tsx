@@ -1,8 +1,10 @@
 import { Add, Remove } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { Announcement, Footer, Navbar, Newsletter } from '../../components';
+import { addProduct } from '../../redux/cartRedux';
 import { DEFAULT_PRODUCT_ID, DEFAULT_PRODUCT, IProduct } from './data';
 import { fetchProduct } from './services';
 import {
@@ -40,11 +42,12 @@ export const Product = () => {
 
   const [product, setProduct] = useState<IProduct>(DEFAULT_PRODUCT);
   const [options, setOptions] = useState<ProductOptions>(defaultProductOptions);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchProduct(productId)
       .then((product: IProduct) => setProduct(product))
-      .catch(() => alert('Error getting the selected product'));
+      .catch(() => console.log('Error getting the selected product'));
   }, [productId]);
 
   const handleColor = (color: string) => {
@@ -76,7 +79,9 @@ export const Product = () => {
     });
   };
 
-  console.log(`This is the amount value: ${options}`);
+  const handleAddToCart = () => {
+    dispatch(addProduct({ product }));
+  };
 
   return (
     <Container>
@@ -124,7 +129,7 @@ export const Product = () => {
                 onClick={handleIncreaseAmount}
               />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleAddToCart}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
