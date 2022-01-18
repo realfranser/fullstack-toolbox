@@ -43,7 +43,6 @@ export const Products = ({
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const { renderPagination, paginationState } = usePagination(
     products.pagination
   );
