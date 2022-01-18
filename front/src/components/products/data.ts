@@ -1,4 +1,4 @@
-import { IPaginationRequest, IPaginationResponse } from '../pagination';
+import { IPaginationRequest, IPaginationResponse } from '../shared/pagination';
 import { API } from '../../constants/services';
 
 const IMAGE_PATH = 'src/images/products';
@@ -57,6 +57,6 @@ export const defaultProductList: IProductList = {
     },
   ],
   pagination: {
-    pageCount: 8,
+    pageCount: 4,
   },
 };

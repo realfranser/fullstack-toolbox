@@ -1,5 +1,5 @@
 import { useState } from 'react';
-//import { useLocation } from 'react-router-dom';
+
 import {
   Arrow,
   Container,
@@ -30,13 +30,8 @@ export interface IPaginationResponse {
   pageCount: number;
 }
 
-export const Pagination = () => {
-  /*
-  const location = useLocation();
-  const { pageCount } = location.state as IPaginationResponse;
-  */
-  const pageCount = 10;
-
+export const usePagination = (props: IPaginationResponse) => {
+  const { pageCount } = props;
   const defaultState: IPagination = {
     pageIndex: 1,
     pageSize: 12,
@@ -44,8 +39,10 @@ export const Pagination = () => {
     canNextPage: pageCount > 1,
     canPrevPage: false,
   };
-  const [state, setState] = useState(defaultState);
-  const [currentPage, setCurrentPage] = useState(defaultState.pageIndex);
+  const [state, setState] = useState<IPagination>(defaultState);
+  const [currentPage, setCurrentPage] = useState<IPagination['pageIndex']>(
+    defaultState.pageIndex
+  );
 
   const back = () => {
     if (!state.canPrevPage) {
@@ -120,24 +117,27 @@ export const Pagination = () => {
     });
   };
 
-  return (
-    <Container>
-      <Arrow onClick={back}>Back</Arrow>
-      <CurrenPage onSubmit={changeCurrentPage}>
-        <CurrentPageText>Current page:</CurrentPageText>
-        <CurrentPageInput
-          type="number"
-          min="1"
-          max={state.pageCount}
-          value={currentPage}
-          onChange={changePageInput}
-        ></CurrentPageInput>
-      </CurrenPage>
-      <MaxPage>
-        <MaxPageText>Max page:</MaxPageText>
-        <MaxPageButton onClick={maxPage}>{state.pageCount}</MaxPageButton>
-      </MaxPage>
-      <Arrow onClick={forward}>Forward</Arrow>
-    </Container>
-  );
+  return {
+    paginationState: state,
+    renderPagination: (
+      <Container>
+        <Arrow onClick={back}>Back</Arrow>
+        <CurrenPage onSubmit={changeCurrentPage}>
+          <CurrentPageText>Current page:</CurrentPageText>
+          <CurrentPageInput
+            type="number"
+            min="1"
+            max={state.pageCount}
+            value={currentPage}
+            onChange={changePageInput}
+          ></CurrentPageInput>
+        </CurrenPage>
+        <MaxPage>
+          <MaxPageText>Max page:</MaxPageText>
+          <MaxPageButton onClick={maxPage}>{state.pageCount}</MaxPageButton>
+        </MaxPage>
+        <Arrow onClick={forward}>Forward</Arrow>
+      </Container>
+    ),
+  };
 };

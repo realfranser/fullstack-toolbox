@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, transitions } from '../../styles';
+import { colors, transitions } from '../../../styles';
 
 const { announcement, secondaryFont, shadow } = colors;
 const { darkerGradient } = transitions;

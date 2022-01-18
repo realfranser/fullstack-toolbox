@@ -6,10 +6,8 @@ import {
   Announcement,
   Newsletter,
   Footer,
-  Pagination,
-  //Products,
+  Products,
 } from '../../components';
-//import { IFetchProductListParams } from '../../components/products/services';
 import {
   Container,
   Filter,
@@ -80,8 +78,7 @@ export const ProductList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      {/*<Products props={} category={category} />*/}
-      <Pagination />
+      <Products props={productListParams} category={category} />
       <Newsletter />
       <Footer />
     </Container>

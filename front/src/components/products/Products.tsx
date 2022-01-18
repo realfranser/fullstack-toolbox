@@ -6,7 +6,16 @@ import {
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Circle, Container, Icon, Product, Info, Image } from './styles';
+import {
+  Circle,
+  Container,
+  Icon,
+  Product,
+  ProductWrapper,
+  Info,
+  Image,
+} from './styles';
+import { usePagination } from '../shared/pagination';
 import { fetchProductList } from './services';
 import {
   defaultProductList,
@@ -30,31 +39,49 @@ export const Products = ({
         setProducts(productList);
       })
       .catch(() => {
-        console.log('Error getting all the products');
+        alert('Error getting all the products');
       });
-  }, [props, category]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const { renderPagination, paginationState } = usePagination(
+    products.pagination
+  );
+
+  useEffect(() => {
+    fetchProductList(props, category)
+      .then((productList) => {
+        setProducts(productList);
+      })
+      .catch(() => {
+        alert('Error getting all the products');
+      });
+  }, [props, category, paginationState]);
 
   return (
     <Container>
-      {products.items.map((item: IProduct) => (
-        <Product key={item.id}>
-          <Circle />
-          <Image src={item.img} />
-          <Info>
-            <Icon>
-              <ShoppingCartOutlined />
-            </Icon>
-            <Icon>
-              <Link to={`/product/${item.id}`}>
-                <SearchOutlined />
-              </Link>
-            </Icon>
-            <Icon>
-              <FavoriteBorderOutlined />
-            </Icon>
-          </Info>
-        </Product>
-      ))}
+      <ProductWrapper>
+        {products.items.map((item: IProduct) => (
+          <Product key={item.id}>
+            <Circle />
+            <Image src={item.img} />
+            <Info>
+              <Icon>
+                <ShoppingCartOutlined />
+              </Icon>
+              <Icon>
+                <Link to={`/product/${item.id}`}>
+                  <SearchOutlined />
+                </Link>
+              </Icon>
+              <Icon>
+                <FavoriteBorderOutlined />
+              </Icon>
+            </Info>
+          </Product>
+        ))}
+      </ProductWrapper>
+      {products.pagination.pageCount > 1 ? renderPagination : null}
     </Container>
   );
 };
