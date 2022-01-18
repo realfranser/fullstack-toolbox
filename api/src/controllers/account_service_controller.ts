@@ -3,18 +3,18 @@ import { Request } from 'express';
 import { IServiceClients } from '../interfaces/clients';
 import { Account, AccountBySidParams } from '../models/account';
 
-export type IAccountServiceControllerClients = Pick<
+export type IUserServiceControllerClients = Pick<
   IServiceClients,
-  'accountServiceClient'
+  'userServiceClient'
 >;
 
 export interface IAccountServiceController {
   getAccountBySid: (req: Request) => Promise<Account | string>;
 }
 
-export const createAccountServiceController = ({
-  accountServiceClient,
-}: IAccountServiceControllerClients): IAccountServiceController => ({
+export const createUserServiceController = ({
+  userServiceClient,
+}: IUserServiceControllerClients): IUserServiceController => ({
   getAccountBySid: async (req: Request) =>
-    accountServiceClient.getAccountBySid(new AccountBySidParams(req.query)),
+    userServiceClient.getAccountBySid(new AccountBySidParams(req.query)),
 });

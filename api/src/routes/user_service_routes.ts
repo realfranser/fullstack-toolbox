@@ -4,18 +4,18 @@ import { createAccountServiceController } from '../controllers/account_service_c
 import BaseResponse from '../helpers/base_response';
 import { IServiceClients } from '../interfaces/clients';
 
-export interface IAccountServiceRoutesConfig {
+export interface IUserServiceRoutesConfig {
   routeUrl: string;
-  clients: Pick<IServiceClients, 'accountServiceClient'>;
+  clients: Pick<IServiceClients, 'userServiceClient'>;
 }
 
-export function createAccountServiceRoutes({
+export function createUserServiceRoutes({
   routeUrl,
   clients,
-}: IAccountServiceRoutesConfig): Router {
+}: IUserServiceRoutesConfig): Router {
   // eslint-disable-next-line new-cap
   const router = Router();
-  const controller = createAccountServiceController(clients);
+  const controller = createUsertServiceController(clients);
 
   router.get(`${routeUrl}`, BaseResponse.json(controller.getAccountBySid));
 

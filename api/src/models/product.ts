@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import {
   IProduct,
-  IProductList,
   IProductByIdParams,
+  IProductList,
   IProductListParams,
 } from '../interfaces/product';
-
 
 import Model from './base_model';
 import { SidPagingQueryParams } from './paging/sid_paging_query_params';
@@ -29,10 +28,6 @@ export class Product extends Model implements IProduct {
     super();
     this.populate(data);
   }
-}
-
-export interface IProductByIdParams {
-  productId: string;
 }
 
 export class ProductByIdParams extends Model implements IProductByIdParams {
