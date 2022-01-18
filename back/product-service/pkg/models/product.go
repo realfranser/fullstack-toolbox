@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/config"
+	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/utils"
 	"gorm.io/gorm"
 )
 
@@ -18,6 +19,7 @@ type Product struct {
 
 type ProductList struct {
 	Items		[]Product		`json:"items"`
+	Pagination utils.Pagination
 }
 
 func init() {
@@ -34,6 +36,12 @@ func (p *Product) CreateProduct() *Product {
 func GetAllProducts() []Product {
 	var Products []Product
 	productDB.Find(&Products)
+	return Products
+}
+
+func GetProductsByCategory(category string) []Product {
+	var Products []Product
+	productDB.Where("category=?", category).Find(&Products)
 	return Products
 }
 

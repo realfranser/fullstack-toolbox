@@ -21,6 +21,16 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+func GetProductsByCategory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	category := vars["category"]
+	newProducts := models.GetProductsByCategory(category)
+	var NewProductList models.ProductList
+	NewProductList.Items = newProducts
+	NewProductList
+	utils.RespondWithJSON(w, http.StatusOK, NewProductList)
+}
+
 func GetProductById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	productId := vars["productId"]
