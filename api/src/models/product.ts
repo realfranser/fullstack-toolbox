@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import {
+  DEFAULT_PAGINATION_REQUEST,
+  DEFAULT_PAGINATION_RESPONSE,
+  IPaginationRequest,
+  IPaginationResponse,
+} from '../interfaces/paging/pagination';
+import {
   IProduct,
   IProductByIdParams,
   IProductList,
@@ -7,7 +13,6 @@ import {
 } from '../interfaces/product';
 
 import Model from './base_model';
-import { SidPagingQueryParams } from './paging/sid_paging_query_params';
 
 export class Product extends Model implements IProduct {
   protected fields: string[] = ['id', 'name', 'category', 'price', 'stock'];
@@ -46,30 +51,21 @@ export class ProductList extends Model implements IProductList {
 
   public items: Product[] = [];
 
+  public pagination: IPaginationResponse = DEFAULT_PAGINATION_RESPONSE;
+
   constructor(data: object) {
     super();
     this.populate(data);
   }
 }
 
-export class ProductListParams
-  extends SidPagingQueryParams
-  implements IProductListParams
-{
-  protected fields: string[] = [
-    'pageSize',
-    'afterSid',
-    'beforeSid',
-    'to',
-    'from',
-  ];
+export class ProductListParams extends Model implements IProductListParams {
+  protected fields: string[] = ['pagination'];
 
-  public to?: string;
-
-  public from?: string;
+  public pagination: IPaginationRequest = DEFAULT_PAGINATION_REQUEST;
 
   constructor(data: object) {
-    super(data);
+    super();
     this.populate(data);
   }
 }

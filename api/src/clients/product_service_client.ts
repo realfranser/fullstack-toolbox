@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { IProductListParams } from '../interfaces/product';
 
 import { Product, ProductList } from '../models/product';
 
@@ -11,7 +12,23 @@ export class ProductServiceClient extends BaseClient {
    * @return {Promise<ProductList>}
    */
   public async getAllProducts(): Promise<ProductList> {
-    return this.get('/api/v1/product').then(
+    return this.get('/api/v1/products').then(
+      (response: AxiosResponse): ProductList => {
+        return new ProductList(response.data);
+      }
+    );
+  }
+
+  /**
+   * @param {string} category
+   * @param {IProductListParams} params
+   * @return {Promise<ProductList>}
+   */
+  public async getProductListByCategory(
+    category: string,
+    params: IProductListParams
+  ): Promise<ProductList> {
+    return this.get(`/api/v1/products/${category}`, params).then(
       (response: AxiosResponse): ProductList => {
         return new ProductList(response.data);
       }

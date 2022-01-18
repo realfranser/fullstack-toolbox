@@ -1,3 +1,5 @@
+import { IPaginationRequest, IPaginationResponse } from './paging/pagination';
+
 export interface IProduct {
   id: string | undefined;
   name: string | undefined;
@@ -14,9 +16,9 @@ export interface IProductByIdParams {
 /* TODO: product pagination */
 export interface IProductList {
   items: IProduct[];
+  pagination: IPaginationResponse;
 }
 
 export interface IProductListParams {
-  from?: string;
-  to?: string;
+  pagination: IPaginationRequest;
 }

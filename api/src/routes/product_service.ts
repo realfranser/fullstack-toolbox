@@ -20,6 +20,11 @@ export function createProductServiceRoutes({
   router.get(`${routeUrl}`, BaseResponse.json(controller.getAllProducts));
 
   router.get(
+    `${routeUrl}/:category`,
+    BaseResponse.json(controller.getProductListByCategory)
+  );
+
+  router.get(
     `${routeUrl}/:productId`,
     BaseResponse.json(controller.getProductById)
   );
