@@ -38,3 +38,5 @@ MySQL
 All the endpoints used to make this porject work are available on this [Postman
 workspace](https://fullstack-toolbox.postman.co/workspace/d8400c79-46c8-4891-b394-02cf979c794e)
 
+## Documentation
+Manage multi project structure in single project: https://github.com/changesets/changesets/blob/main/docs/common-questions.md

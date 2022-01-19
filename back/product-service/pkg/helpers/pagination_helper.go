@@ -4,7 +4,7 @@ import (
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
 )
 
-func Paginate(paginationParams *models.PaginationRequest) (offset uint, pageSize uint){
+func Paginate(paginationParams *models.PaginationRequest) (offset int, pageSize int){
 	/* Check for null or invalid page size values */
 	if paginationParams.PageSize <= 0 {
 		paginationParams.PageSize = models.DEFAULT_PAGE_SIZE
@@ -19,5 +19,5 @@ func Paginate(paginationParams *models.PaginationRequest) (offset uint, pageSize
 		offsetResult = paginationParams.Offset
 	}
 
-	return offsetResult, paginationParams.PageSize
+	return int(offsetResult), int(paginationParams.PageSize)
 }
