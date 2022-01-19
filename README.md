@@ -1,6 +1,6 @@
 # Fullstack Toolbox
 
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webtools.health%2F&psig=AOvVaw3SRZOm0QKxU3BfRN9dQ2FL&ust=1642701129609000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKifot-wvvUCFQAAAAAdAAAAABAK" alt="Fullstack Toolbox" style="height: 500px; width:500px;"/>
+<img src="https://uploads-ssl.webflow.com/5eb71e52042e740ad80cc406/5ebd8365cfa4cb336bc66917_webtools%20health.png" alt="Fullstack Toolbox" style="height: 500px; width:500px;"/>
 
 This is a fullstack *template* that allows to create a fast MVP for any web
 application project.
