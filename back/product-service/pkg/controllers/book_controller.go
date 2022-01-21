@@ -6,7 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	helper "github.com/realfranser/fullstack-toolbox/back/product-service/pkg/helpers"
+
+	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/helpers"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
 )
 
@@ -25,7 +26,7 @@ func GetBookById(w http.ResponseWriter, r *http.Request) {
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		tools.RespondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	bookDetails, _ := models.GetBookById(ID)
@@ -37,7 +38,7 @@ func GetBookById(w http.ResponseWriter, r *http.Request) {
 
 func CreateBook(w http.ResponseWriter, r *http.Request) {
 	var createBook = &models.Book{}
-	helper.ParseBody(r, createBook)
+	tools.ParseBody(r, createBook)
 	b := createBook.CreateBook()
 	res, _ := json.Marshal(b)
 	w.Header().Set("Content-Type", "pkglocation/json")
@@ -50,7 +51,7 @@ func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		tools.RespondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	book := models.DeleteBook(ID)
@@ -62,12 +63,12 @@ func DeleteBook(w http.ResponseWriter, r *http.Request) {
 
 func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	var updateBook = &models.Book{}
-	helper.ParseBody(r, updateBook)
+	tools.ParseBody(r, updateBook)
 	vars := mux.Vars(r)
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		tools.RespondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	bookDetails, db := models.GetBookById(ID)

@@ -6,7 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	helper "github.com/realfranser/fullstack-toolbox/back/product-service/pkg/helpers"
+
+	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/helpers"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
 )
 
@@ -25,14 +26,14 @@ func GetProductsByCategory(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	category := vars["category"]
 	var productsRequest = &models.ProductListRequest{}
-	helper.ParseBody(r, productsRequest)
-	offset, pageSize := helper.Paginate(&productsRequest.Pagination)
+	tools.ParseBody(r, productsRequest)
+	offset, pageSize := tools.Paginate(&productsRequest.Pagination)
 	
 	newProducts := models.GetProductsByCategory(category, offset, pageSize)
 	var NewProductList models.ProductList
 	NewProductList.Items = newProducts
 	NewProductList.Pagination.PageCount = uint(len(newProducts))
-	helper.RespondWithJSON(w, http.StatusOK, NewProductList)
+	tools.RespondWithJSON(w, http.StatusOK, NewProductList)
 }
 
 func GetProductById(w http.ResponseWriter, r *http.Request) {
@@ -40,7 +41,7 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 	productId := vars["productId"]
 	ID, err := strconv.ParseInt(productId, 0, 0)
 	if err != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		tools.RespondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	productDetails, _ := models.GetProductById(ID)
@@ -53,8 +54,8 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var createProduct = &models.Product{}
-	if errCode, err := helper.ParseBody(r, createProduct); err != nil {
-		helper.RespondWithError(w, errCode, err.Error())
+	if errCode, err := tools.ParseBody(r, createProduct); err != nil {
+		tools.RespondWithError(w, errCode, err.Error())
 		return
 	}
 
@@ -71,7 +72,7 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	productId := vars["productId"]
 	ID, err := strconv.ParseInt(productId, 0, 0)
 	if err != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		tools.RespondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	product := models.DeleteProduct(ID)
@@ -84,12 +85,12 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	var updateProduct = &models.Product{}
-	helper.ParseBody(r, updateProduct)
+	tools.ParseBody(r, updateProduct)
 	vars := mux.Vars(r)
 	productId := vars["productId"]
 	ID, err := strconv.ParseInt(productId, 0, 0)
 	if err != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, err.Error())
+		tools.RespondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	productDetails, db := models.GetProductById(ID)

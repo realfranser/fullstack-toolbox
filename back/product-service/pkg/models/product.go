@@ -1,8 +1,10 @@
 package models
 
 import (
-	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/config"
 	"gorm.io/gorm"
+
+	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/models"
+	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/config"
 )
 
 var productDB *gorm.DB
@@ -17,12 +19,12 @@ type Product struct {
 }
 
 type ProductList struct {
-	Items				[]Product						`json:"items"`
-	Pagination	PaginationResponse 	`json:"pagination"`
+	Items				[]Product									`json:"items"`
+	Pagination	tools.PaginationResponse 	`json:"pagination"`
 }
 
 type ProductListRequest struct {
-	Pagination	PaginationRequest	`json:"pagination"`
+	Pagination	tools.Pagination	`json:"pagination"`
 }
 
 func init() {
