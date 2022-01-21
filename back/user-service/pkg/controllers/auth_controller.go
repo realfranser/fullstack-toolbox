@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"time"
 
+	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/helpers"
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/models"
 )
@@ -13,15 +14,15 @@ import (
 func Signup(w http.ResponseWriter, r *http.Request) {
 	var signupUser = &models.User{}
 	var signupResponse = &models.SignupResponse{}
-	if errCode, err := helper.ParseBody(r, signupUser); err != nil {
-		helper.RespondWithError(w, errCode, err.Error())
+	if errCode, err := tools.ParseBody(r, signupUser); err != nil {
+		tools.RespondWithError(w, errCode, err.Error())
 		return
 	}
 	password := helper.HashPassword(*signupUser.Password)
 	signupUser.Password = &password
 	/* Check if the email or phone number are already in use */
 	if signupUser.CheckPhoneEmail() {
-		helper.RespondWithError(w, http.StatusConflict, "this email or phone number are alreadly in use")
+		tools.RespondWithError(w, http.StatusConflict, "this email or phone number are alreadly in use")
 		return
 	}
 	/* Insert user in DB */
@@ -45,30 +46,30 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 
 	signupResponse.User_id = newUser.User_id
-	helper.RespondWithJSON(w, http.StatusCreated, signupResponse)
+	tools.RespondWithJSON(w, http.StatusCreated, signupResponse)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	var loginRequest = &models.LoginRequest{}
 
-	if errCode, err := helper.ParseBody(r, loginRequest); err != nil {
-		helper.RespondWithError(w, errCode, err.Error())
+	if errCode, err := tools.ParseBody(r, loginRequest); err != nil {
+		tools.RespondWithError(w, errCode, err.Error())
 		return
 	}
 
 	userDetails, db := models.GetUserByEmail(loginRequest.Email)
 	if db.Error != nil {
-		helper.RespondWithError(w,  http.StatusUnauthorized, db.Error.Error())
+		tools.RespondWithError(w,  http.StatusUnauthorized, db.Error.Error())
 		return
 	}
 
 	if passwordIsValid, msg := helper.VerifyPassword(loginRequest.Password, *userDetails.Password); !passwordIsValid {
-		helper.RespondWithError(w, http.StatusUnauthorized, msg)
+		tools.RespondWithError(w, http.StatusUnauthorized, msg)
 		return
 	}
 
 	if userDetails.Email == nil {
-		helper.RespondWithError(w, http.StatusNotFound, "user not found")
+		tools.RespondWithError(w, http.StatusNotFound, "user not found")
 		return
 	}
 	token, refreshToken, _ := helper.GenerateAllTokens(*userDetails.Email,
@@ -83,8 +84,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	userFound, db := models.GetUserByHexId(userDetails.User_id, ctx)
 	defer cancel()
 	if db.Error != nil {
-		helper.RespondWithError(w, http.StatusInternalServerError, db.Error.Error())
+		tools.RespondWithError(w, http.StatusInternalServerError, db.Error.Error())
 		return
 	}
-	helper.RespondWithJSON(w, http.StatusAccepted, userFound)
+	tools.RespondWithJSON(w, http.StatusAccepted, userFound)
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/models"
 	"github.com/realfranser/fullstack-toolbox/back/user-service/pkg/config"
 	"gorm.io/gorm"
 )
@@ -29,7 +30,7 @@ type UserList struct {
 }
 
 type GetUsersRequest struct {
-	Pagination	Pagination	`json:"pagination"`
+	Pagination	tools.Pagination	`json:"pagination"`
 }
 
 func init() {

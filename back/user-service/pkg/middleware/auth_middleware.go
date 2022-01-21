@@ -3,6 +3,7 @@ package middleware
 import (
 	"net/http"
 
+	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/helpers"
 	helper "github.com/realfranser/fullstack-toolbox/back/user-service/pkg/helpers"
 )
 
@@ -11,13 +12,13 @@ func Authenticate(next http.Handler) http.Handler{
 		/* WARNING: check if this token is extracted as expected */
 		clientToken := r.Header.Get("token")
 		if clientToken == "" {
-			helper.RespondWithError(w, http.StatusForbidden, "No Authorization header provided")
+			tools.RespondWithError(w, http.StatusForbidden, "No Authorization header provided")
 			return
 		}
 
 		claims, err := helper.ValidateToken(clientToken)
 		if err != "" {
-			helper.RespondWithError(w, http.StatusForbidden, err)
+			tools.RespondWithError(w, http.StatusForbidden, err)
 			return
 		}
 
