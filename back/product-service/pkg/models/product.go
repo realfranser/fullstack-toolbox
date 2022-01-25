@@ -28,7 +28,8 @@ type ProductListRequest struct {
 }
 
 func init() {
-	config.Connect()
+	test := false
+	config.Connect(test)
 	productDB = config.GetDB()
 	productDB.AutoMigrate(&Product{})
 }
