@@ -1,10 +1,14 @@
 package tests
 
 import (
+	"bytes"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"testing"
 
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/config"
+	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/controllers"
 	"gorm.io/gorm"
 )
 
@@ -17,29 +21,20 @@ func TestMain(m *testing.M) {
 }
 
 func start() {
-	config.Connect()
+	test := true
+	config.Connect(test)
 	db = config.GetDB()
 }
 
-func createTestTable(table *struct{}) (err error){
-
-
-	db.Exec()
-
-
-	if db.AutoMigrate(table); err != nil {
-		return err
+func executeRequest(method string, url string, body []byte) (res *http.Response, err error){
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
+	if err != nil {
+		panic(err)
 	}
-	return nil
-}
 
-func createTestData(data []interface{}) (err error){
-	if db.Create(&data); err != nil {
-		return err
-	}
-	return nil
-}
-
-func clearTestTable() {
-	db.Exec()
+	w := httptest.NewRecorder()
+	controllers.GetProductsByCategory(w, req)
+	res = w.Result()
+	defer res.Body.Close()
+	return res, nil
 }

@@ -11,3 +11,6 @@ prod:
 	go build -o cmd/main cmd/main/main.go
 	./cmd/main/main
 
+test:
+	go test ./tests/
+

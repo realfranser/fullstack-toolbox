@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -25,6 +26,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 func GetProductsByCategory(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	category := vars["category"]
+	fmt.Printf("This is the category: %s\n", category)
 	var productsRequest = &models.ProductListRequest{}
 	tools.ParseBody(r, productsRequest)
 	offset, pageSize := tools.Paginate(&productsRequest.Pagination)
