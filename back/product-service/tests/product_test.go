@@ -1,15 +1,13 @@
 package tests
 
 import (
-	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
+	"github.com/gorilla/mux"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/controllers"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
 )
@@ -52,46 +50,35 @@ func TestGetProductsByCategory(t *testing.T) {
 	}
 
 	/* Call the controller */
-}
-
-func TestGetProductsByCategory(t *testing.T) {
-	/* Adding PRODUCTS_BY_CATEGORY * size(categories) rows to the test product table */
-	db.AutoMigrate(&models.Product{})
-
-	for _, category := range productCategories {
-		productList := GenerateProductList(PRODUCTS_BY_CATEGORY, category)
-		db.Create(&productList)
-	}
-
-	/* Call the getProductByCategory endpoint */
-	pagination := paginationRequestList[0]
-	var expectedResponseBody models.ProductList
-	expectedResponseBody.Items = GenerateProductList(pagination.PageSize, productCategories[0])
-	expectedResponseBody.Pagination.PageCount = uint(pagination.PageSize)
-	request := models.ProductListRequest{Pagination: paginationRequestList[0]}
-	jsonData, _ := json.Marshal(request)
-	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/%s", PRODUCTS_ENDPOINT, productCategories[0]), bytes.NewBuffer(jsonData))
+	mockID := 0
+	requestBody, err := CreateBody(productListByCategoryMocks[mockID].Request)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
-	ctx := context.WithValue(req.Context(), DEFAULT_PRODUCT_CATEGORY, "winter")
-	fmt.Printf("This is the context value: %v\n", req.Context().Value("category"))
-	w := httptest.NewRecorder()
-	controllers.GetProductsByCategory(w, req.WithContext(ctx))
-	res := w.Result()
-	defer res.Body.Close()
-	data, err := ioutil.ReadAll(res.Body)
-	var pax models.ProductList
-	json.Unmarshal(data, &pax)
-	fmt.Printf("This is the response body: %v\n\n", pax)
-
+	req, err := http.NewRequest("GET", productListByCategoryMocks[mockID].Url, requestBody)
 	if err != nil {
-		t.Errorf("error: %v", err)
+		t.Fatal(err)
 	}
-	jsonExpectedResponseBody, _ := json.Marshal(expectedResponseBody)
-	if !bytes.Equal(data, jsonExpectedResponseBody) {
-		t.Errorf("expected %v and got %v", expectedResponseBody, data)
+	rr := httptest.NewRecorder()
+
+	/* Need to create a router so that the var will be added to context */
+	router := mux.NewRouter()
+	router.HandleFunc(fmt.Sprintf("%s/{category}", PRODUCTS_ENDPOINT), controllers.GetProductsByCategory)
+	router.ServeHTTP(rr, req)
+
+	/* Compare expected results and handler results */
+	expectedStatus := productListByCategoryMocks[mockID].Status
+	structBody := productListByCategoryMocks[mockID].Response
+	expectedBody, _ := json.Marshal(structBody)
+	if status := rr.Code; status != expectedStatus {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, productListByCategoryMocks[mockID].Status)
+	}
+	if rr.Body.String() != string(expectedBody) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), string(expectedBody))
 	}
 
-	db.Migrator().DropTable(&models.Product{})
+	/* Delete data from the product_service_test database */
+	db.Delete(models.Product{}, "category LIKE ?", BASE_TEST_CATEGORY + "%")
 }

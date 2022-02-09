@@ -2,13 +2,12 @@ package tests
 
 import (
 	"bytes"
-	"net/http"
-	"net/http/httptest"
+	"encoding/json"
+	"io"
 	"os"
 	"testing"
 
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/config"
-	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/controllers"
 	"gorm.io/gorm"
 )
 
@@ -21,20 +20,15 @@ func TestMain(m *testing.M) {
 }
 
 func start() {
-	test := true
-	config.Connect(test)
+	config.Connect()
 	db = config.GetDB()
 }
 
-func executeRequest(method string, url string, body []byte) (res *http.Response, err error){
-	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
+func CreateBody(rawBody interface{}) (body io.Reader, err error){
+	jsonData, err := json.Marshal(rawBody)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	w := httptest.NewRecorder()
-	controllers.GetProductsByCategory(w, req)
-	res = w.Result()
-	defer res.Body.Close()
-	return res, nil
+	return bytes.NewBuffer(jsonData), nil
 }
