@@ -28,16 +28,17 @@ func GenerateProduct(id int) (models.Product){
 func GenerateProductList(n int, category string) ([]models.Product){
 	var productList []models.Product
 	for i := 0; i < n; i++ {
-		product := models.Product{
-			Name:					fmt.Sprintf("product_%d", i),
-			Category:			category,
-			Price:				float32(i),
-			Stock:				uint16(i),
-			Description:	fmt.Sprintf("description_%d", i),
-		}
+		product := GenerateProduct(i)
 		productList = append(productList, product)
 	}
 
+	return productList
+}
+
+func DeleteIdField(productList models.ProductList) (result models.ProductList){
+	for i, _ := range productList.Items {
+		productList.Items[i].ID = 0
+	}
 	return productList
 }
 
@@ -66,6 +67,14 @@ func TestGetProductsByCategory(t *testing.T) {
 	router.HandleFunc(fmt.Sprintf("%s/{category}", PRODUCTS_ENDPOINT), controllers.GetProductsByCategory)
 	router.ServeHTTP(rr, req)
 
+	var body models.ProductList
+	json.Unmarshal(rr.Body.Bytes(), body)
+	responseBody := DeleteID()
+	CheckResults(productListByCategoryMocks[mockID].Status,
+		productListByCategoryMocks[mockID].Response,
+		rr.Code,
+		body,
+	)
 	/* Compare expected results and handler results */
 	expectedStatus := productListByCategoryMocks[mockID].Status
 	structBody := productListByCategoryMocks[mockID].Response
