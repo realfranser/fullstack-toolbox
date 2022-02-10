@@ -10,17 +10,17 @@ import (
 type ProductListMock struct {
 	MockDescription string										`json:"mock_description"`
 	Url							string										`json:"url"`
-	Request 				models.ProductListRequest `json:"request"`
+	Request					models.ProductListRequest	`json:"request"`
 	Response 				models.ProductList				`json:"response"`
 	Status					int												`json:"status"`
 }
-
 
 const (
 	PRODUCT_ENDPOINT = "/api/v1/product"
 	PRODUCTS_ENDPOINT = "/api/v1/products"
 	PRODUCTS_BY_CATEGORY = 10
 	BASE_TEST_CATEGORY = "test_cat_"
+	INVALID_CATEGORY = "invalid_category"
 )
 
 var (
@@ -69,7 +69,7 @@ var productListByCategoryMocks = []ProductListMock{
 	},
 	{
 		MockDescription: "empty category: the specified category has no available products",
-		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", "invalid_category"),
+		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", INVALID_CATEGORY),
 		Request: models.ProductListRequest{
 			Pagination: tools.Pagination{
 				PageSize: tools.DEFAULT_PAGE_SIZE,
@@ -77,7 +77,37 @@ var productListByCategoryMocks = []ProductListMock{
 			},
 		},
 		Response: models.ProductList{
-			Items: GenerateProductList(0, tools.DEFAULT_OFFSET, "invalid_category"),
+			Items: GenerateProductList(0, tools.DEFAULT_OFFSET, INVALID_CATEGORY),
+			Pagination: tools.PaginationResponse{
+				PageCount: 0,
+			},
+		},
+		Status: 200,
+	},
+	{
+		MockDescription: "empty request body: the pagination params are empty and should assume default pagination",
+		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", productCategories[0]),
+		Request: models.ProductListRequest{},
+		Response: models.ProductList{
+			Items: GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_OFFSET, productCategories[0]),
+			Pagination: tools.PaginationResponse{
+				PageCount: 1,
+			},
+		},
+		Status: 200,
+	},
+	{
+		MockDescription: "invalid pagination and category: the pagination params and category are invalid should assume default pagination and return empty set",
+		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", INVALID_CATEGORY),
+		Request: models.ProductListRequest{
+			Pagination: tools.Pagination{
+				PageSize: -1,
+				PageIndex: -1,
+				Offset: -1,
+			},
+		},
+		Response: models.ProductList{
+			Items: GenerateProductList(0, tools.DEFAULT_OFFSET, INVALID_CATEGORY),
 			Pagination: tools.PaginationResponse{
 				PageCount: 0,
 			},

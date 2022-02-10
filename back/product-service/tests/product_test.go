@@ -49,6 +49,7 @@ func DeleteIdField(expectedProductList models.ProductList, responseProductList [
 func TestGetProductsByCategory(t *testing.T) {
 	/* Create products for all categories in the product_service_test database */
 	db.AutoMigrate(&models.Product{})
+	db.Delete(models.Product{}, "category LIKE ?", BASE_TEST_CATEGORY + "%")
 	for _, category := range productCategories {
 		productList := GenerateProductList(PRODUCTS_BY_CATEGORY, tools.DEFAULT_OFFSET, category)
 		db.Create(&productList)
