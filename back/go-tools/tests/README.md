@@ -5,6 +5,7 @@
 ### Colored output
 
 > Debian/Ubuntu: apt-get install grc
+
 > MacOS: brew install grc
 
 Create personal grc config in ~/.grc/grc.conf
