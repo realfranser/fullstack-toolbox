@@ -1,5 +1,6 @@
 package models
 
+const DEFAULT_OFFSET = 0
 const DEFAULT_PAGE_SIZE = 10
 const DEFAULT_PAGE_INDEX = 1
 
