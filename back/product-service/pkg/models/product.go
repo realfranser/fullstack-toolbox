@@ -44,9 +44,9 @@ func GetAllProducts() []Product {
 	return Products
 }
 
-func GetProductsByCategory(category string, offset int, pageSize int) []Product {
+func GetProductsByCategory(category string, offset int) []Product {
 	var Products []Product
-	productDB.Where("category=?", category).Offset(offset).Limit(pageSize).Find(&Products)
+	productDB.Where("category=?", category).Offset(offset).Find(&Products)
 	return Products
 }
 
