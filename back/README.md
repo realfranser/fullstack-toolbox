@@ -2,6 +2,9 @@
 
 The scope of the backend directory is to create multiple services and APIs for the middle and front end to consume.
 
+<img align="center" alt="Golang" width="180px" src="https://danielrosiles.com/wp-content/uploads/2020/05/Golang.png" />
+
+
 ## Microservices
 
 ### Product Service
