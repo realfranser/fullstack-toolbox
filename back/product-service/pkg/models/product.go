@@ -44,10 +44,11 @@ func GetAllProducts() []Product {
 	return Products
 }
 
-func GetProductsByCategory(category string, offset int, pageSize int) (products []Product, count int) {
+func GetProductsByCategory(category string, offset int, pageSize int) (products []Product, count int64) {
 	var Products []Product
-	result := productDB.Where("category=?", category).Find(&Products)
-	return Products[offset:offset+pageSize], int(result.RowsAffected)
+	productDB.Raw("SELECT COUNT(*) FROM products WHERE category=?", category).Scan(&count)
+	productDB.Where("category=?", category).Offset(offset).Limit(pageSize).Find(&Products)
+	return Products, count
 }
 
 func GetProductById(Id int64) (*Product, *gorm.DB) {

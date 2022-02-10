@@ -67,4 +67,21 @@ var productListByCategoryMocks = []ProductListMock{
 		},
 		Status: 200,
 	},
+	{
+		MockDescription: "empty category: the specified category has no available products",
+		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", "invalid_category"),
+		Request: models.ProductListRequest{
+			Pagination: tools.Pagination{
+				PageSize: tools.DEFAULT_PAGE_SIZE,
+				PageIndex: tools.DEFAULT_PAGE_INDEX,
+			},
+		},
+		Response: models.ProductList{
+			Items: GenerateProductList(0, tools.DEFAULT_OFFSET, "invalid_category"),
+			Pagination: tools.PaginationResponse{
+				PageCount: 0,
+			},
+		},
+		Status: 200,
+	},
 }

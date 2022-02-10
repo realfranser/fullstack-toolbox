@@ -74,14 +74,14 @@ func TestGetProductsByCategory(t *testing.T) {
 		/* Compare expected results and handler results */
 		expectedBody, responseBody := DeleteIdField(productListByCategoryMocks[mockID].Response, rr.Body.Bytes())
 		expectedStatus := productListByCategoryMocks[mockID].Status
-		t.Logf("Test %d: %s", mockID, productListByCategoryMocks[mockID].MockDescription)
+		t.Logf("Test %d -> %s", mockID, productListByCategoryMocks[mockID].MockDescription)
 		if status := rr.Code; status != expectedStatus {
 			t.Errorf("handler returned wrong status code: got %v want %v",
 				status, expectedStatus)
 		}
 		if expectedBody != responseBody {
 			t.Errorf("handler returned unexpected body: got %#v want %#v",
-				expectedBody, responseBody)
+				responseBody, expectedBody)
 		}
 	}
 	/* Delete data from the product_service_test database */
