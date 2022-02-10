@@ -8,10 +8,11 @@ import (
 )
 
 type ProductListMock struct {
-	Url				string										`json:"url"`
-	Request 	models.ProductListRequest `json:"request"`
-	Response 	models.ProductList				`json:"response"`
-	Status		int												`json:"status"`
+	MockDescription string										`json:"mock_description"`
+	Url							string										`json:"url"`
+	Request 				models.ProductListRequest `json:"request"`
+	Response 				models.ProductList				`json:"response"`
+	Status					int												`json:"status"`
 }
 
 
@@ -32,8 +33,8 @@ var (
 )
 
 var productListByCategoryMocks = []ProductListMock{
-	/* Default mock */
 	{
+		MockDescription: "default mock: category 0 and default pagination values",
 		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", productCategories[0]),
 		Request: models.ProductListRequest{
 			Pagination: tools.Pagination{
@@ -49,8 +50,8 @@ var productListByCategoryMocks = []ProductListMock{
 		},
 		Status: 200,
 	},
-	/* Multiple page mock */
 	{
+		MockDescription: "pagination mock: half sized page size, modified page index",
 		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", productCategories[0]),
 		Request: models.ProductListRequest{
 			Pagination: tools.Pagination{
