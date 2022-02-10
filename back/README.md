@@ -17,3 +17,8 @@ Developed in [GO](https://github.com/golang/go)
 
 Manages all the user information, from authentication credentials, to client status, payment information, etc.
 In depth description [here](https://github.com/realfranser/fullstack-toolbox/back/inventory-product-service).
+
+### Go Tools
+
+Helpers, models and other standard components for backend development with go
+
