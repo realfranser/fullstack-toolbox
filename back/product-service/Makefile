@@ -12,4 +12,5 @@ prod:
 	./cmd/main/main
 
 test:
-	go test -v ./tests/
+	grc go test -v ./tests/
+
