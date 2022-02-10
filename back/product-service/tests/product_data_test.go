@@ -2,7 +2,6 @@ package tests
 
 import (
 	"fmt"
-	"math"
 
 	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/models"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
@@ -24,7 +23,8 @@ const (
 )
 
 var (
-	productCategories = [...]string{BASE_TEST_CATEGORY + "0",
+	productCategories = [...]string{
+		BASE_TEST_CATEGORY + "0",
 		BASE_TEST_CATEGORY + "1",
 		BASE_TEST_CATEGORY + "2",
 		BASE_TEST_CATEGORY + "3",
@@ -44,7 +44,7 @@ var productListByCategoryMocks = []ProductListMock{
 		Response: models.ProductList{
 			Items: GenerateProductList(tools.DEFAULT_PAGE_SIZE, productCategories[0]),
 			Pagination: tools.PaginationResponse{
-				PageCount: uint(math.Ceil(PRODUCTS_BY_CATEGORY/tools.DEFAULT_PAGE_SIZE)),
+				PageCount: uint(PRODUCTS_BY_CATEGORY/tools.DEFAULT_PAGE_SIZE),
 			},
 		},
 		Status: 200,

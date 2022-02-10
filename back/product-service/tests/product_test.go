@@ -13,10 +13,10 @@ import (
 )
 
 
-func GenerateProduct(id int) (models.Product){
+func GenerateProduct(id int, category string) (models.Product){
 	product := models.Product{
 			Name:					fmt.Sprintf("product_%d", id),
-			Category:			fmt.Sprintf("category_%d", id),
+			Category:			category,
 			Price:				1,
 			Stock:				1,
 			Description:	fmt.Sprintf("description_%d", id),
@@ -28,18 +28,21 @@ func GenerateProduct(id int) (models.Product){
 func GenerateProductList(n int, category string) ([]models.Product){
 	var productList []models.Product
 	for i := 0; i < n; i++ {
-		product := GenerateProduct(i)
+		product := GenerateProduct(i, category)
 		productList = append(productList, product)
 	}
 
 	return productList
 }
 
-func DeleteIdField(productList models.ProductList) (result models.ProductList){
-	for i, _ := range productList.Items {
-		productList.Items[i].ID = 0
+func DeleteIdField(expectedProductList models.ProductList, responseProductList []byte) (expectedBody string, responseBody string){
+	var resBody models.ProductList
+	json.Unmarshal(responseProductList, &resBody)
+	for i := range expectedProductList.Items {
+		expectedProductList.Items[i].ID = 0
+		resBody.Items[i].ID = 0
 	}
-	return productList
+	return fmt.Sprintf("%v", expectedProductList), fmt.Sprintf("%v", resBody)
 }
 
 func TestGetProductsByCategory(t *testing.T) {
@@ -67,25 +70,16 @@ func TestGetProductsByCategory(t *testing.T) {
 	router.HandleFunc(fmt.Sprintf("%s/{category}", PRODUCTS_ENDPOINT), controllers.GetProductsByCategory)
 	router.ServeHTTP(rr, req)
 
-	var body models.ProductList
-	json.Unmarshal(rr.Body.Bytes(), body)
-	responseBody := DeleteID()
-	CheckResults(productListByCategoryMocks[mockID].Status,
-		productListByCategoryMocks[mockID].Response,
-		rr.Code,
-		body,
-	)
 	/* Compare expected results and handler results */
+	expectedBody, responseBody := DeleteIdField(productListByCategoryMocks[mockID].Response, rr.Body.Bytes())
 	expectedStatus := productListByCategoryMocks[mockID].Status
-	structBody := productListByCategoryMocks[mockID].Response
-	expectedBody, _ := json.Marshal(structBody)
 	if status := rr.Code; status != expectedStatus {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, productListByCategoryMocks[mockID].Status)
+			status, expectedStatus)
 	}
-	if rr.Body.String() != string(expectedBody) {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			rr.Body.String(), string(expectedBody))
+	if expectedBody != responseBody {
+		t.Errorf("handler returned unexpected body: got %#v want %#v",
+			expectedBody, expectedBody)
 	}
 
 	/* Delete data from the product_service_test database */

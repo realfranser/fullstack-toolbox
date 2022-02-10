@@ -32,7 +32,7 @@ func GetProductsByCategory(w http.ResponseWriter, r *http.Request) {
 	newProducts := models.GetProductsByCategory(category, offset, pageSize)
 	var NewProductList models.ProductList
 	NewProductList.Items = newProducts
-	NewProductList.Pagination.PageCount = uint(len(newProducts))
+	NewProductList.Pagination.PageCount = uint(len(newProducts)/pageSize)
 	tools.RespondWithJSON(w, http.StatusOK, NewProductList)
 }
 
