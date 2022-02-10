@@ -42,6 +42,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220121110919-0eaa835318b1 h1:7SmO41IC7DThFAVxQVGOd6HIx8GO+fEjnfiXcvr6st8=
 github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220121110919-0eaa835318b1/go.mod h1:W6n6rjyg6Lj8y55iYg8nAy032eflNUaBHDp3nz8buzk=
+github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220210105825-e977a8915723 h1:Bt29f88Tp/h99XofHoew4zprsAWOZcPLnTvloTILbJA=
+github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220210105825-e977a8915723/go.mod h1:W6n6rjyg6Lj8y55iYg8nAy032eflNUaBHDp3nz8buzk=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/rogpeppe/go-internal v1.8.0/go.mod h1:WmiCO8CzOY8rg0OYDC4/i/2WRWAB6poM+XZ2dLUbcbE=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

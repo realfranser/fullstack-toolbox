@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/gorilla/mux v1.8.0
 	github.com/jinzhu/gorm v1.9.16
-	github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220121110919-0eaa835318b1
+	github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220210105825-e977a8915723
 	gorm.io/driver/mysql v1.1.3
 	gorm.io/gorm v1.22.2
 )

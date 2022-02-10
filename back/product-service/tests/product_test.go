@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
+	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/models"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/controllers"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
 )
@@ -25,9 +26,9 @@ func GenerateProduct(id int, category string) (models.Product){
 	return product
 }
 
-func GenerateProductList(n int, category string) ([]models.Product){
+func GenerateProductList(n int, offset int, category string) ([]models.Product){
 	var productList []models.Product
-	for i := 0; i < n; i++ {
+	for i := offset; i < n; i++ {
 		product := GenerateProduct(i, category)
 		productList = append(productList, product)
 	}
@@ -49,39 +50,39 @@ func TestGetProductsByCategory(t *testing.T) {
 	/* Create products for all categories in the product_service_test database */
 	db.AutoMigrate(&models.Product{})
 	for _, category := range productCategories {
-		productList := GenerateProductList(PRODUCTS_BY_CATEGORY, category)
+		productList := GenerateProductList(PRODUCTS_BY_CATEGORY, tools.DEFAULT_OFFSET, category)
 		db.Create(&productList)
 	}
 
 	/* Call the controller */
-	mockID := 0
-	requestBody, err := CreateBody(productListByCategoryMocks[mockID].Request)
-	if err != nil {
-		t.Fatal(err)
-	}
-	req, err := http.NewRequest("GET", productListByCategoryMocks[mockID].Url, requestBody)
-	if err != nil {
-		t.Fatal(err)
-	}
-	rr := httptest.NewRecorder()
+	for mockID := range productListByCategoryMocks {
+		requestBody, err := CreateBody(productListByCategoryMocks[mockID].Request)
+		if err != nil {
+			t.Fatal(err)
+		}
+		req, err := http.NewRequest("GET", productListByCategoryMocks[mockID].Url, requestBody)
+		if err != nil {
+			t.Fatal(err)
+		}
+		rr := httptest.NewRecorder()
 
-	/* Need to create a router so that the var will be added to context */
-	router := mux.NewRouter()
-	router.HandleFunc(fmt.Sprintf("%s/{category}", PRODUCTS_ENDPOINT), controllers.GetProductsByCategory)
-	router.ServeHTTP(rr, req)
+		/* Need to create a router so that the var will be added to context */
+		router := mux.NewRouter()
+		router.HandleFunc(fmt.Sprintf("%s/{category}", PRODUCTS_ENDPOINT), controllers.GetProductsByCategory)
+		router.ServeHTTP(rr, req)
 
-	/* Compare expected results and handler results */
-	expectedBody, responseBody := DeleteIdField(productListByCategoryMocks[mockID].Response, rr.Body.Bytes())
-	expectedStatus := productListByCategoryMocks[mockID].Status
-	if status := rr.Code; status != expectedStatus {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, expectedStatus)
+		/* Compare expected results and handler results */
+		expectedBody, responseBody := DeleteIdField(productListByCategoryMocks[mockID].Response, rr.Body.Bytes())
+		expectedStatus := productListByCategoryMocks[mockID].Status
+		if status := rr.Code; status != expectedStatus {
+			t.Errorf("handler returned wrong status code: got %v want %v",
+				status, expectedStatus)
+		}
+		if expectedBody != responseBody {
+			t.Errorf("handler returned unexpected body: got %#v want %#v",
+				expectedBody, responseBody)
+		}
 	}
-	if expectedBody != responseBody {
-		t.Errorf("handler returned unexpected body: got %#v want %#v",
-			expectedBody, expectedBody)
-	}
-
 	/* Delete data from the product_service_test database */
 	db.Delete(models.Product{}, "category LIKE ?", BASE_TEST_CATEGORY + "%")
 }

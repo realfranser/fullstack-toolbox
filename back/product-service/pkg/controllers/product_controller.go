@@ -29,10 +29,10 @@ func GetProductsByCategory(w http.ResponseWriter, r *http.Request) {
 	tools.ParseBody(r, productsRequest)
 	offset, pageSize := tools.Paginate(&productsRequest.Pagination)
 	
-	newProducts := models.GetProductsByCategory(category, offset)
+	newProducts, productCount := models.GetProductsByCategory(category, offset, pageSize)
 	var NewProductList models.ProductList
-	NewProductList.Items = newProducts[:pageSize]
-	NewProductList.Pagination.PageCount = uint(len(newProducts)/pageSize)
+	NewProductList.Items = newProducts
+	NewProductList.Pagination.PageCount = uint(productCount/pageSize)
 	tools.RespondWithJSON(w, http.StatusOK, NewProductList)
 }
 
