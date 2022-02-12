@@ -40,8 +40,6 @@ github.com/mattn/go-sqlite3 v1.14.0/go.mod h1:JIl7NbARA7phWnGvh0LKTyg7S9BA+6gx71
 github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e/go.mod h1:pJLUxLENpZxwdsKMEsNbx1VGcRFpLqf3715MtcvvzbA=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220121110919-0eaa835318b1 h1:7SmO41IC7DThFAVxQVGOd6HIx8GO+fEjnfiXcvr6st8=
-github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220121110919-0eaa835318b1/go.mod h1:W6n6rjyg6Lj8y55iYg8nAy032eflNUaBHDp3nz8buzk=
 github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220210105825-e977a8915723 h1:Bt29f88Tp/h99XofHoew4zprsAWOZcPLnTvloTILbJA=
 github.com/realfranser/fullstack-toolbox/back/go-tools v0.0.0-20220210105825-e977a8915723/go.mod h1:W6n6rjyg6Lj8y55iYg8nAy032eflNUaBHDp3nz8buzk=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=

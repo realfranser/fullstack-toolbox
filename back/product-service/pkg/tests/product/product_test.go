@@ -1,7 +1,6 @@
-package tests
+package product_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -11,40 +10,8 @@ import (
 	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/models"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/controllers"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
+	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/tests"
 )
-
-
-func GenerateProduct(id int, category string) (models.Product){
-	product := models.Product{
-			Name:					fmt.Sprintf("product_%d", id),
-			Category:			category,
-			Price:				1,
-			Stock:				1,
-			Description:	fmt.Sprintf("description_%d", id),
-	}
-
-	return product
-}
-
-func GenerateProductList(n int, offset int, category string) ([]models.Product){
-	var productList []models.Product
-	for i := offset; i < n; i++ {
-		product := GenerateProduct(i, category)
-		productList = append(productList, product)
-	}
-
-	return productList
-}
-
-func DeleteIdField(expectedProductList models.ProductList, responseProductList []byte) (expectedBody string, responseBody string){
-	var resBody models.ProductList
-	json.Unmarshal(responseProductList, &resBody)
-	for i := range expectedProductList.Items {
-		expectedProductList.Items[i].ID = 0
-		resBody.Items[i].ID = 0
-	}
-	return fmt.Sprintf("%v", expectedProductList), fmt.Sprintf("%v", resBody)
-}
 
 func TestGetProductsByCategory(t *testing.T) {
 	/* Create products for all categories in the product_service_test database */
@@ -52,12 +19,12 @@ func TestGetProductsByCategory(t *testing.T) {
 	tests.db.Delete(models.Product{}, "category LIKE ?", BASE_TEST_CATEGORY + "%")
 	for _, category := range productCategories {
 		productList := GenerateProductList(PRODUCTS_BY_CATEGORY, tools.DEFAULT_OFFSET, category)
-		db.Create(&productList)
+		tests.db.Create(&productList)
 	}
 
 	/* Call the controller */
 	for mockID := range productListByCategoryMocks {
-		requestBody, err := CreateBody(productListByCategoryMocks[mockID].Request)
+		requestBody, err := tests.CreateBody(productListByCategoryMocks[mockID].Request)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -86,5 +53,5 @@ func TestGetProductsByCategory(t *testing.T) {
 		}
 	}
 	/* Delete data from the product_service_test database */
-	db.Delete(models.Product{}, "category LIKE ?", BASE_TEST_CATEGORY + "%")
+	tests.db.Delete(models.Product{}, "category LIKE ?", BASE_TEST_CATEGORY + "%")
 }
