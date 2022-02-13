@@ -1,10 +1,11 @@
-package tests
+package mocks
 
 import (
 	"fmt"
 
 	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/models"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
+	"github.com/realfranser/fullstack-toolbox/back/product-service/tests/helpers"
 )
 
 type ProductListMock struct {
@@ -24,7 +25,7 @@ const (
 )
 
 var (
-	productCategories = [...]string{
+	ProductCategories = [...]string{
 		BASE_TEST_CATEGORY + "0",
 		BASE_TEST_CATEGORY + "1",
 		BASE_TEST_CATEGORY + "2",
@@ -32,10 +33,10 @@ var (
 	}
 )
 
-var productListByCategoryMocks = []ProductListMock{
+var ProductListByCategoryMocks = []ProductListMock{
 	{
 		MockDescription: "default mock: category 0 and default pagination values",
-		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", productCategories[0]),
+		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", ProductCategories[0]),
 		Request: models.ProductListRequest{
 			Pagination: tools.Pagination{
 				PageSize: tools.DEFAULT_PAGE_SIZE,
@@ -43,7 +44,7 @@ var productListByCategoryMocks = []ProductListMock{
 			},
 		},
 		Response: models.ProductList{
-			Items: GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_OFFSET, productCategories[0]),
+			Items: helpers.GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_OFFSET, ProductCategories[0]),
 			Pagination: tools.PaginationResponse{
 				PageCount: uint(PRODUCTS_BY_CATEGORY/tools.DEFAULT_PAGE_SIZE),
 			},
@@ -52,7 +53,7 @@ var productListByCategoryMocks = []ProductListMock{
 	},
 	{
 		MockDescription: "pagination mock: half sized page size, modified page index",
-		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", productCategories[0]),
+		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", ProductCategories[0]),
 		Request: models.ProductListRequest{
 			Pagination: tools.Pagination{
 				PageSize: tools.DEFAULT_PAGE_SIZE / 2,
@@ -60,7 +61,7 @@ var productListByCategoryMocks = []ProductListMock{
 			},
 		},
 		Response: models.ProductList{
-			Items: GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_PAGE_SIZE / 2, productCategories[0]),
+			Items: helpers.GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_PAGE_SIZE / 2, ProductCategories[0]),
 			Pagination: tools.PaginationResponse{
 				PageCount: uint(PRODUCTS_BY_CATEGORY/(tools.DEFAULT_PAGE_SIZE / 2)),
 			},
@@ -77,7 +78,7 @@ var productListByCategoryMocks = []ProductListMock{
 			},
 		},
 		Response: models.ProductList{
-			Items: GenerateProductList(0, tools.DEFAULT_OFFSET, INVALID_CATEGORY),
+			Items: helpers.GenerateProductList(0, tools.DEFAULT_OFFSET, INVALID_CATEGORY),
 			Pagination: tools.PaginationResponse{
 				PageCount: 0,
 			},
@@ -86,10 +87,10 @@ var productListByCategoryMocks = []ProductListMock{
 	},
 	{
 		MockDescription: "empty request body: the pagination params are empty and should assume default pagination",
-		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", productCategories[0]),
+		Url: PRODUCTS_ENDPOINT + fmt.Sprintf("/%s", ProductCategories[0]),
 		Request: models.ProductListRequest{},
 		Response: models.ProductList{
-			Items: GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_OFFSET, productCategories[0]),
+			Items: helpers.GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_OFFSET, ProductCategories[0]),
 			Pagination: tools.PaginationResponse{
 				PageCount: 1,
 			},
@@ -107,7 +108,7 @@ var productListByCategoryMocks = []ProductListMock{
 			},
 		},
 		Response: models.ProductList{
-			Items: GenerateProductList(0, tools.DEFAULT_OFFSET, INVALID_CATEGORY),
+			Items: helpers.GenerateProductList(0, tools.DEFAULT_OFFSET, INVALID_CATEGORY),
 			Pagination: tools.PaginationResponse{
 				PageCount: 0,
 			},
