@@ -23,36 +23,38 @@ func TestGetProductsByCategory(t *testing.T) {
 		db.Create(&productList)
 	}
 
-	/* Call the controller */
-	for mockID := range mocks.ProductListByCategoryMocks {
-		requestBody, err := CreateBody(mocks.ProductListByCategoryMocks[mockID].Request)
-		if err != nil {
-			t.Fatal(err)
-		}
-		req, err := http.NewRequest("GET", mocks.ProductListByCategoryMocks[mockID].Url, requestBody)
-		if err != nil {
-			t.Fatal(err)
-		}
-		rr := httptest.NewRecorder()
+	/* Run all subtests */
+	for _, tt := range mocks.ProductListByCategoryMocks {
+		t.Run(tt.MockDescription, func(t *testing.T) {
+			requestBody, err := CreateBody(tt.Request)
+			if err != nil {
+				t.Fatal(err)
+			}
+			req, err := http.NewRequest("GET", tt.Url, requestBody)
+			if err != nil {
+				t.Fatal(err)
+			}
+			rr := httptest.NewRecorder()
 
-		/* Need to create a router so that the var will be added to context */
-		router := mux.NewRouter()
-		router.HandleFunc(fmt.Sprintf("%s/{category}", mocks.PRODUCTS_ENDPOINT), controllers.GetProductsByCategory)
-		router.ServeHTTP(rr, req)
+			/* Need to create a router so that the var will be added to context */
+			router := mux.NewRouter()
+			router.HandleFunc(fmt.Sprintf("%s/{category}", mocks.PRODUCTS_ENDPOINT), controllers.GetProductsByCategory)
+			router.ServeHTTP(rr, req)
 
-		/* Compare expected results and handler results */
-		expectedBody, responseBody := helpers.DeleteIdField(mocks.ProductListByCategoryMocks[mockID].Response, rr.Body.Bytes())
-		expectedStatus := mocks.ProductListByCategoryMocks[mockID].Status
-		t.Logf("Test %d -> %s", mockID, mocks.ProductListByCategoryMocks[mockID].MockDescription)
-		if status := rr.Code; status != expectedStatus {
-			t.Errorf("handler returned wrong status code: got %v want %v",
-				status, expectedStatus)
-		}
-		if expectedBody != responseBody {
-			t.Errorf("handler returned unexpected body: got %#v want %#v",
-				responseBody, expectedBody)
-		}
+			/* Compare expected results and handler results */
+			expectedBody, responseBody := helpers.DeleteIdField(tt.Response, rr.Body.Bytes())
+			expectedStatus := tt.Status
+			if status := rr.Code; status != expectedStatus {
+				t.Errorf("handler returned wrong status code: got %v want %v",
+					status, expectedStatus)
+			}
+			if expectedBody != responseBody {
+				t.Errorf("handler returned unexpected body: got %#v want %#v",
+					responseBody, expectedBody)
+			}
+		})
 	}
+
 	/* Delete data from the product_service_test database */
 	db.Delete(models.Product{}, "category LIKE ?", mocks.BASE_TEST_CATEGORY + "%")
 }
