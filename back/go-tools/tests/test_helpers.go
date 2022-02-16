@@ -1,9 +1,9 @@
 package tests
 
 import (
-  "io"
-  "encoding/json"
-  "bytes"
+	"bytes"
+	"encoding/json"
+	"io"
 )
 
 func CreateBody(rawBody interface{}) (body io.Reader, err error){
@@ -14,4 +14,3 @@ func CreateBody(rawBody interface{}) (body io.Reader, err error){
 
   return bytes.NewBuffer(jsonData), nil
 }
-
