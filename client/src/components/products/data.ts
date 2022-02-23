@@ -3,6 +3,18 @@ import { API } from '../../constants/services';
 
 const IMAGE_PATH = 'src/images/products';
 export const SERVICE_URL = API.V1_PRODUCTS;
+type color = 'Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow';
+type size = 'XS' | 'S' | 'M' | 'L' | 'XL';
+
+export interface IProductNew {
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  colorList: color[];
+  sizeList: size[];
+  description: string;
+}
 
 export interface IProduct {
   id: number;
@@ -15,8 +27,8 @@ export interface IProductList {
 }
 
 export interface IFetchProductListParams {
-  color?: 'Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow';
-  size?: 'XS' | 'S' | 'M' | 'L' | 'XL';
+  color?: color;
+  size?: size;
   sort: 'asc' | 'desc' | 'newest';
   pagination: IPaginationRequest;
 }

@@ -1,7 +1,7 @@
 {
-  "name": "react-typescript-webpack-starter",
+  "name": "fullstack-toolbox-web-client-toolbox",
   "version": "1.0.0",
-  "description": "A starter template for React with Typescript using Webpack 5",
+  "description": "web client for the fullstack-toolbox project",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev",
     "build": "webpack --config webpack/webpack.config.js --env env=prod",
