@@ -1,9 +1,6 @@
 package tests
 
 import (
-	"bytes"
-	"encoding/json"
-	"io"
 	"os"
 	"testing"
 
@@ -22,13 +19,4 @@ func TestMain(m *testing.M) {
 func start() {
 	config.Connect()
 	db = config.GetDB()
-}
-
-func CreateBody(rawBody interface{}) (body io.Reader, err error){
-	jsonData, err := json.Marshal(rawBody)
-	if err != nil {
-		return nil, err
-	}
-
-	return bytes.NewBuffer(jsonData), nil
 }

@@ -7,6 +7,8 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
+
+	testTools "github.com/realfranser/fullstack-toolbox/back/go-tools/helpers"
 	tools "github.com/realfranser/fullstack-toolbox/back/go-tools/models"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/controllers"
 	"github.com/realfranser/fullstack-toolbox/back/product-service/pkg/models"
@@ -26,7 +28,7 @@ func TestGetProductsByCategory(t *testing.T) {
 	/* Run all subtests */
 	for _, tt := range mocks.ProductListByCategoryMocks {
 		t.Run(tt.MockDescription, func(t *testing.T) {
-			requestBody, err := CreateBody(tt.Request)
+			requestBody, err := testTools.CreateBody(tt.Request)
 			if err != nil {
 				t.Fatal(err)
 			}
