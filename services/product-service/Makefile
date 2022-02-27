@@ -14,3 +14,6 @@ prod:
 test:
 	grc go test -v ./tests/
 
+update:
+	go get -u ./... && go get -u all && go mod tidy
+
