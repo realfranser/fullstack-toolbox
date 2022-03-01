@@ -10,12 +10,14 @@ import (
 var productDB *gorm.DB
 
 type Product struct {
-	ID     			uint		`json:"id" gorm:"primaryKey"`
-	Name 				string	`json:"name"`
-	Category 		string 	`json:"category"`
-	Price 			float32 `json:"price"`
-	Stock 			uint16	`json:"stock" validate:"required"`
-	Description string 	`json:"description"`
+	gorm.Model
+	Name 				string		`json:"name"`
+	Category 		string 		`json:"category"`
+	Price 			float32 	`json:"price"`
+	Stock 			uint16		`json:"stock" validate:"required"`
+	ColorList		[]string	`json:"color_list"`
+	SizeList		[]string	`json:"size_list"`
+	Description string 		`json:"description"`
 }
 
 type ProductList struct {
