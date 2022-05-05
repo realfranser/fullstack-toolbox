@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-import { SERVICE_URL, IProduct } from './data';
+import { API } from '../../constants/services';
+import { IProduct } from './data';
+
+const SERVICE_URL = API.V1_PRODUCT;
 
 /**
- * @param {IFetchProductListParams} params
- * @param {string} category
+ * @param {number} id
  * @returns {Promise<IProductList>}
  */
 export const fetchProduct = async (id: number): Promise<IProduct> => {

@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-import { SERVICE_URL, IFetchProductListParams, IProductList } from './data';
+import { API } from '../../constants/services';
+import { IFetchProductListParams, IProductList } from './data';
+
+const SERVICE_URL = API.V1_PRODUCTS;
 
 /**
  * @param {IFetchProductListParams} params

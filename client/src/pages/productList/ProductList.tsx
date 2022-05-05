@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import _ from 'lodash';
 
 import {
   Navbar,
@@ -24,8 +25,10 @@ export const ProductList = () => {
   let { category } = useParams();
   if (category === undefined) category = DEFAULT_CATEGORY;
 
+  const defaultParamValues = ['Colors', 'Sizes'];
+
   const defaultProductListParams: IFetchProductListParams = {
-    sort: 'newest',
+    sort: 'Newest',
     pagination: {
       pageIndex: 1,
       pageSize: 12,
@@ -37,6 +40,15 @@ export const ProductList = () => {
   ] = useState<IFetchProductListParams>(defaultProductListParams);
 
   const handleFilters = (e: React.FormEvent<HTMLSelectElement>) => {
+    if (defaultParamValues.includes(e.currentTarget.value)) {
+      const newProductList = _.omit(
+        productListParams,
+        e.currentTarget.name
+      ) as IFetchProductListParams;
+      setProductListParams(newProductList);
+      return;
+    }
+
     setProductListParams({
       ...productListParams,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -52,7 +64,7 @@ export const ProductList = () => {
         <Filter>
           <FilterText>Filter Products:</FilterText>
           <Select name="color" onChange={handleFilters}>
-            <Option disabled>Color</Option>
+            <Option>Colors</Option>
             <Option>White</Option>
             <Option>Black</Option>
             <Option>Red</Option>
@@ -61,7 +73,7 @@ export const ProductList = () => {
             <Option>Green</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
-            <Option disabled>Size</Option>
+            <Option>Sizes</Option>
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>

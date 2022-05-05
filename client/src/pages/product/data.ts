@@ -1,25 +1,23 @@
-import { API } from '../../constants/services';
-
-export const DEFAULT_PRODUCT_ID = '0';
-export const SERVICE_URL = API.V1_PRODUCT;
+type color = 'Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow';
+type size = 'XS' | 'S' | 'M' | 'L' | 'XL';
 
 export interface IProduct {
-  id: number;
-  title: string;
-  description: string;
+  name: string;
+  category: string;
   price: number;
+  colorList: color[];
+  sizeList: size[];
   img: string;
-  colors: ('Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow')[];
-  sizes: ('XS' | 'S' | 'M' | 'L' | 'XL')[];
+  description: string;
 }
 
 export const DEFAULT_PRODUCT: IProduct = {
-  id: 0,
-  title: 'Denim Jumpsuit',
+  name: 'Denim Jumpsuit',
+  category: 'Spring',
+  price: 29.99,
+  colorList: ['Black', 'Blue', 'Green'],
+  sizeList: ['XS', 'S', 'M'],
+  img: 'https://i.ibb.co/S6qMxwr/jean.jpg',
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget tristique tortor pretium ut. Curabitur elit justo, consequat id condimentum ac, volutpat ornare.',
-  price: 20,
-  img: 'https://i.ibb.co/S6qMxwr/jean.jpg',
-  colors: ['Black', 'Blue', 'Green'],
-  sizes: ['XS', 'S', 'M'],
 };

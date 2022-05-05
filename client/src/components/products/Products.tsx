@@ -18,7 +18,7 @@ import {
 import { usePagination } from '../shared/pagination';
 import { fetchProductList } from './services';
 import {
-  defaultProductList,
+  DEFAULT_PRODUCT_LIST,
   IFetchProductListParams,
   IProduct,
   IProductList,
@@ -31,18 +31,7 @@ export const Products = ({
   props: IFetchProductListParams;
   category: string;
 }) => {
-  const [products, setProducts] = useState<IProductList>(defaultProductList);
-
-  useEffect(() => {
-    fetchProductList(props, category)
-      .then((productList) => {
-        setProducts(productList);
-      })
-      .catch(() => {
-        alert('Error getting all the products');
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [products, setProducts] = useState<IProductList>(DEFAULT_PRODUCT_LIST);
   const { renderPagination, paginationState } = usePagination(
     products.pagination
   );
