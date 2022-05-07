@@ -92,13 +92,13 @@ export const Product = () => {
           <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>{product.title}</Title>
+          <Title>{product.name}</Title>
           <Desc>{product.description}</Desc>
           <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {product.colors.map((color) => (
+              {product.colorList.map((color) => (
                 <FilterColor
                   key={color}
                   bg={color}
@@ -109,7 +109,7 @@ export const Product = () => {
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize>
-                {product.sizes.map((size) => (
+                {product.sizeList.map((size) => (
                   <FilterSizeOption key={size} onClick={() => handleSize(size)}>
                     {size}
                   </FilterSizeOption>

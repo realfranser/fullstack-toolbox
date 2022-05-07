@@ -12,7 +12,6 @@ func GenerateProduct(id int, category string) (models.Product){
 			Name:					fmt.Sprintf("product_%d", id),
 			Category:			category,
 			Price:				1,
-			Stock:				1,
 			Description:	fmt.Sprintf("description_%d", id),
 	}
 

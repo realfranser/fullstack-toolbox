@@ -21,7 +21,7 @@ export const createProductServiceController = ({
   getProductListByCategory: async (req: Request) =>
     productServiceClient.getProductListByCategory(
       req.params.category,
-      new ProductListParams(req.body)
+      new ProductListParams(req.query)
     ),
   getProductById: async (req: Request) =>
     productServiceClient.getProductById(req.params.productId),

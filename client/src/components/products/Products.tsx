@@ -39,7 +39,13 @@ export const Products = ({
   useEffect(() => {
     fetchProductList(props, category)
       .then((productList) => {
-        setProducts(productList);
+        let prods = productList;
+        if (!productList) {
+          prods = DEFAULT_PRODUCT_LIST;
+        } else {
+          prods = productList;
+        }
+        setProducts(prods);
       })
       .catch(() => {
         alert('Error getting all the products');

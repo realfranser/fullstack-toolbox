@@ -2,6 +2,7 @@ type color = 'Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow';
 type size = 'XS' | 'S' | 'M' | 'L' | 'XL';
 
 export interface IProduct {
+  id: number;
   name: string;
   category: string;
   price: number;
@@ -11,7 +12,10 @@ export interface IProduct {
   description: string;
 }
 
+export const DEFAULT_PRODUCT_ID = '0';
+
 export const DEFAULT_PRODUCT: IProduct = {
+  id: 0,
   name: 'Denim Jumpsuit',
   category: 'Spring',
   price: 29.99,

@@ -1,8 +1,8 @@
-import { AccountServiceClient, ProductServiceClient } from '../clients';
+import { UserServiceClient, ProductServiceClient } from '../clients';
 
 export interface IServiceClients {
   // Clients
-  accountServiceClient: AccountServiceClient;
+  userServiceClient: UserServiceClient;
   productServiceClient: ProductServiceClient;
 
   // Orchestrators

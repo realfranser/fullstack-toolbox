@@ -14,7 +14,7 @@ export interface IAccountServiceController {
 
 export const createUserServiceController = ({
   userServiceClient,
-}: IUserServiceControllerClients): IUserServiceController => ({
+}: IUserServiceControllerClients): IAccountServiceController => ({
   getAccountBySid: async (req: Request) =>
     userServiceClient.getAccountBySid(new AccountBySidParams(req.query)),
 });

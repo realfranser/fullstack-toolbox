@@ -1,4 +1,4 @@
-import { AccountServiceClient, ProductServiceClient } from '../clients';
+import { UserServiceClient, ProductServiceClient } from '../clients';
 
 import createAsyncClient from '../helpers/async_client';
 import { IServiceClients } from '../interfaces/clients';
@@ -7,7 +7,7 @@ import { config } from '../../config/default';
 
 export function createClients(): IServiceClients {
   // Clients
-  const accountServiceClient = new AccountServiceClient(
+  const userServiceClient = new UserServiceClient(
     createAsyncClient(config.clients.accountService.serviceUrl),
     config.clients.accountService.name
   );
@@ -19,7 +19,7 @@ export function createClients(): IServiceClients {
   // Orchestrators
 
   return {
-    accountServiceClient,
+    userServiceClient,
     productServiceClient,
   };
 }

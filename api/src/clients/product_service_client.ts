@@ -28,6 +28,8 @@ export class ProductServiceClient extends BaseClient {
     category: string,
     params: IProductListParams
   ): Promise<ProductList> {
+    console.log('These are the getProdyctListByCategory params: \n');
+    console.log(params);
     return this.get(`/api/v1/products/${category}`, params).then(
       (response: AxiosResponse): ProductList => {
         return new ProductList(response.data);

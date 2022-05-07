@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { createAccountServiceController } from '../controllers/account_service_controller';
+import { createUserServiceController } from '../controllers/user_service_controller';
 import BaseResponse from '../helpers/base_response';
 import { IServiceClients } from '../interfaces/clients';
 
@@ -15,7 +15,7 @@ export function createUserServiceRoutes({
 }: IUserServiceRoutesConfig): Router {
   // eslint-disable-next-line new-cap
   const router = Router();
-  const controller = createUsertServiceController(clients);
+  const controller = createUserServiceController(clients);
 
   router.get(`${routeUrl}`, BaseResponse.json(controller.getAccountBySid));
 

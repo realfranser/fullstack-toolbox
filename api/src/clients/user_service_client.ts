@@ -4,7 +4,7 @@ import { Account, AccountBySidParams } from '../models/account';
 
 import { BaseClient } from './base_client';
 
-export class AccountServiceClient extends BaseClient {
+export class UserServiceClient extends BaseClient {
   public static readonly SERVICE_URL = 'http://localhost:18001';
 
   /**

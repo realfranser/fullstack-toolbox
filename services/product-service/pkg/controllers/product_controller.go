@@ -103,12 +103,11 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	if updateProduct.Price != 0 {
 		productDetails.Price = updateProduct.Price
 	}
-	if updateProduct.Stock != 0 {
-		productDetails.Stock = updateProduct.Stock
-	}
 	if updateProduct.Description != "" {
 		productDetails.Description = updateProduct.Description
 	}
+	productDetails.Premium = updateProduct.Premium
+
 	db.Save(&productDetails)
 	res, _ := json.Marshal(productDetails)
 

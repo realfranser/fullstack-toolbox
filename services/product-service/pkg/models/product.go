@@ -14,9 +14,7 @@ type Product struct {
 	Name 				string		`json:"name"`
 	Category 		string 		`json:"category"`
 	Price 			float32 	`json:"price"`
-	Stock 			uint16		`json:"stock" validate:"required"`
-	ColorList		[]string	`json:"color_list"`
-	SizeList		[]string	`json:"size_list"`
+	Premium			bool			`json:"premium" default:"false"`
 	Description string 		`json:"description"`
 }
 

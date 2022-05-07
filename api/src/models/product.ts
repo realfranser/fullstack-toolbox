@@ -15,9 +15,18 @@ import {
 import Model from './base_model';
 
 export class Product extends Model implements IProduct {
-  protected fields: string[] = ['id', 'name', 'category', 'price', 'stock'];
+  protected fields: string[] = [
+    'id',
+    'name',
+    'category',
+    'price',
+    'stock',
+    'colorList',
+    'sizeList',
+    'description',
+  ];
 
-  public id: string | undefined = undefined;
+  public id: number | undefined = undefined;
 
   public name: string | undefined = undefined;
 
@@ -26,6 +35,12 @@ export class Product extends Model implements IProduct {
   public price: number | undefined = undefined;
 
   public stock: number | undefined = undefined;
+
+  public colorList?:
+    | ('Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow')[]
+    | undefined;
+
+  public sizeList?: ('XS' | 'S' | 'M' | 'L' | 'XL')[] | undefined;
 
   public description: string | undefined = undefined;
 
@@ -60,7 +75,15 @@ export class ProductList extends Model implements IProductList {
 }
 
 export class ProductListParams extends Model implements IProductListParams {
-  protected fields: string[] = ['pagination'];
+  protected fields: string[] = ['sort', 'color', 'size', 'pagination'];
+
+  public sort: 'Newest' | 'Price (asc)' | 'Price (desc)' | undefined;
+
+  public color?:
+    | ('Black' | 'Blue' | 'Green' | 'Red' | 'White' | 'Yellow')
+    | undefined;
+
+  public size?: ('XS' | 'S' | 'M' | 'L' | 'XL') | undefined;
 
   public pagination: IPaginationRequest = DEFAULT_PAGINATION_REQUEST;
 
