@@ -42,6 +42,8 @@ export class Product extends Model implements IProduct {
 
   public sizeList?: ('XS' | 'S' | 'M' | 'L' | 'XL')[] | undefined;
 
+  public imageUrl: string | undefined = undefined;
+
   public description: string | undefined = undefined;
 
   constructor(data: object) {

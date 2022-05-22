@@ -54,11 +54,6 @@ export default class Model {
       }
     });
 
-    /*
-     * https://issues.corp.twilio.com/browse/PNREG-759
-     * https://wiki.hq.twilio.com/pages/viewpage.action?pageId=92761953#Console&Smartling-TranslationsinanJSONendpoint
-     * https://help.smartling.com/hc/en-us/articles/360000322694
-     */
     if (!config.shouldTranslate) {
       result[SmartlingTranslationKey.TRANSLATION_KEY] =
         SmartlingTranslationValue.SL_NONE;

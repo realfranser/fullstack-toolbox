@@ -1,2 +1,2 @@
 export * from './user_service_routes';
-export * from './product_service';
+export * from './product_service_routes';
