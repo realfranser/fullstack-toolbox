@@ -10,7 +10,7 @@ import (
 var productDB *gorm.DB
 
 type Product struct {
-	gorm.Model
+	Id					int				`json:"id"`
 	Name 				string		`json:"name"`
 	Category 		string 		`json:"category"`
 	Price 			float32 	`json:"price"`
@@ -18,12 +18,28 @@ type Product struct {
 	Description string 		`json:"description"`
 }
 
-type ProductList struct {
-	Items				[]Product									`json:"items"`
+type ProductResponse struct {
+	Id					int				`json:"id"`
+	Name 				string		`json:"name"`
+	Category 		string 		`json:"category"`
+	Price 			float32 	`json:"price"`
+	Premium			bool			`json:"premium" default:"false"`
+	Stock				int				`json:"stock"`
+	ColorList		[]string	`json:"color_list"`
+	SizeList		[]string	`json:"size_list"`
+	ImageUrl		string		`json:"image_url"`
+	Description string 		`json:"description"`
+}
+
+type ProductListResponse struct {
+	Items				[]ProductResponse					`json:"items"`
 	Pagination	tools.PaginationResponse 	`json:"pagination"`
 }
 
 type ProductListRequest struct {
+	Sort				string						`json:"sort"`
+	Color				string						`json:"color" default:"%"`
+	Size 				string						`json:"size" default:"%"`
 	Pagination	tools.Pagination	`json:"pagination"`
 }
 
@@ -44,9 +60,15 @@ func GetAllProducts() []Product {
 	return Products
 }
 
-func GetProductsByCategory(category string, offset int, pageSize int) (products []Product, count int64) {
+func GetProductsByCategory(category string, offset int, pageSize int, params ProductListRequest) (products []Product, count int64) {
 	var Products []Product
-	productDB.Raw("SELECT COUNT(*) FROM products WHERE category=?", category).Scan(&count)
+	color := params.Color
+	size := params.Size
+	productDB.Raw(`SELECT COUNT(*)
+		FROM products p, colors c, sizes si, stock st
+		WHERE p.category=? AND p.id=c.product_id AND p.id=si.product_id
+			AND c.name LIKE ? 
+			AND si.name LIKE ?`, category, color, size).Scan(&count)
 	productDB.Where("category=?", category).Offset(offset).Limit(pageSize).Find(&Products)
 	return Products, count
 }

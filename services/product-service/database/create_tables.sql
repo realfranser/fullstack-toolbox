@@ -30,6 +30,7 @@ CREATE TABLE `colors`
 	id INT AUTO_INCREMENT,
 	product_id INT NOT NULL,
 	name VARCHAR(30) NOT NULL,
+	image_url VARCHAR(200) NOT NULL,
 	-- Properties
 	PRIMARY KEY(id),
 	FOREIGN KEY (product_id) REFERENCES products(id)
@@ -50,12 +51,11 @@ CREATE TABLE `stock`
 	id INT AUTO_INCREMENT,
 	product_id INT NOT NULL,
 	color_id INT NOT NULL,
-	size_id INT NOT NULL
+	size_id INT NOT NULL,
 	stock INT NOT NULL,
-	img VARCHAR(200) NOT NULL,
 	-- Properties
 	PRIMARY KEY(id),
-	FOREIGN KEY (product_id) REFERENCES products(id)
-	FOREIGN KEY (color_id) REFERENCES colors(id)
+	FOREIGN KEY (product_id) REFERENCES products(id),
+	FOREIGN KEY (color_id) REFERENCES colors(id),
 	FOREIGN KEY (size_id) REFERENCES sizes(id)
-)
+);

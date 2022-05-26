@@ -9,11 +9,11 @@ import (
 )
 
 type ProductListMock struct {
-	MockDescription string										`json:"mock_description"`
-	Url							string										`json:"url"`
-	Request					models.ProductListRequest	`json:"request"`
-	Response 				models.ProductList				`json:"response"`
-	Status					int												`json:"status"`
+	MockDescription string											`json:"mock_description"`
+	Url							string											`json:"url"`
+	Request					models.ProductListRequest		`json:"request"`
+	Response 				models.ProductListResponse	`json:"response"`
+	Status					int													`json:"status"`
 }
 
 const (

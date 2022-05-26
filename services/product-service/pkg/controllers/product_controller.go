@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -12,9 +13,10 @@ import (
 )
 
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
-	newProducts := models.GetAllProducts()
-	var NewProductList models.ProductList
-	NewProductList.Items = newProducts
+	// TODO: fix this
+	//newProducts := models.GetAllProducts()
+	var NewProductList models.ProductListResponse
+	//NewProductList.Items = newProducts
 	res, _ := json.Marshal(NewProductList)
 
 	w.Header().Set("Content-Type", "pkglocation/json")
@@ -27,10 +29,14 @@ func GetProductsByCategory(w http.ResponseWriter, r *http.Request) {
 	category := vars["category"]
 	var productsRequest = &models.ProductListRequest{}
 	tools.ParseBody(r, productsRequest)
+
 	offset, pageSize := tools.Paginate(&productsRequest.Pagination)
-	newProducts, productCount := models.GetProductsByCategory(category, offset, pageSize)
-	var NewProductList models.ProductList
-	NewProductList.Items = newProducts
+
+	var NewProductList models.ProductListResponse
+	// TODO: fix this
+	//newProducts, productCount := models.GetProductsByCategory(category, offset, pageSize, *productsRequest)
+	_, productCount := models.GetProductsByCategory(category, offset, pageSize, *productsRequest)
+	//NewProductList.Items = newProducts
 	NewProductList.Pagination.PageCount = uint(int(productCount)/pageSize)
 	tools.RespondWithJSON(w, http.StatusOK, NewProductList)
 }
@@ -53,6 +59,7 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var createProduct = &models.Product{}
+	fmt.Print(r.URL.Query())
 	if errCode, err := tools.ParseBody(r, createProduct); err != nil {
 		tools.RespondWithError(w, errCode, err.Error())
 		return

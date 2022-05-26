@@ -28,12 +28,12 @@ func GenerateProductList(n int, offset int, category string) ([]models.Product){
 	return productList
 }
 
-func DeleteIdField(expectedProductList models.ProductList, responseProductList []byte) (expectedBody string, responseBody string){
-	var resBody models.ProductList
+func DeleteIdField(expectedProductList models.ProductListResponse, responseProductList []byte) (expectedBody string, responseBody string){
+	var resBody models.ProductListResponse
 	json.Unmarshal(responseProductList, &resBody)
 	for i := range expectedProductList.Items {
-		expectedProductList.Items[i].ID = 0
-		resBody.Items[i].ID = 0
+		expectedProductList.Items[i].Id = 0
+		resBody.Items[i].Id = 0
 	}
 	return fmt.Sprintf("%v", expectedProductList), fmt.Sprintf("%v", resBody)
 }
