@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
 import {
+  IPagination,
+  IPaginationResponse,
+  defaultPaginationState,
+} from './data';
+import {
   Arrow,
   Container,
   CurrenPage,
@@ -11,34 +16,10 @@ import {
   MaxPageText,
 } from './styles';
 
-export interface IPagination {
-  pageIndex: number;
-  pageSize: number;
-  pageCount: number;
-  canNextPage: boolean;
-  canPrevPage: boolean;
-  offset?: number;
-}
-
-export interface IPaginationRequest {
-  pageIndex: number;
-  pageSize: number;
-  offset?: number;
-}
-
-export interface IPaginationResponse {
-  pageCount: number;
-}
-
 export const usePagination = (props: IPaginationResponse) => {
   const { pageCount } = props;
-  const defaultState: IPagination = {
-    pageIndex: 1,
-    pageSize: 12,
-    pageCount: pageCount,
-    canNextPage: pageCount > 1,
-    canPrevPage: false,
-  };
+  const defaultState: IPagination = defaultPaginationState(pageCount);
+
   const [state, setState] = useState<IPagination>(defaultState);
   const [currentPage, setCurrentPage] = useState<IPagination['pageIndex']>(
     defaultState.pageIndex

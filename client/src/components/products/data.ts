@@ -25,7 +25,7 @@ export interface IFetchProductListParams {
   pagination: IPaginationRequest;
 }
 
-const IMAGE_PATH = 'src/images/products';
+const IMAGE_PATH = '/src/images/products';
 
 export const DEFAULT_PRODUCT_LIST: IProductList = {
   items: [
@@ -95,6 +95,6 @@ export const DEFAULT_PRODUCT_LIST: IProductList = {
     },
   ],
   pagination: {
-    pageCount: 1,
+    pageCount: 2,
   },
 };

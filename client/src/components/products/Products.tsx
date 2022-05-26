@@ -39,15 +39,10 @@ export const Products = ({
   useEffect(() => {
     fetchProductList(props, category)
       .then((productList) => {
-        let prods = productList;
-        if (!productList) {
-          prods = DEFAULT_PRODUCT_LIST;
-        } else {
-          prods = productList;
-        }
-        setProducts(prods);
+        setProducts(productList);
       })
       .catch(() => {
+        setProducts(DEFAULT_PRODUCT_LIST);
         alert('Error getting all the products');
       });
   }, [props, category, paginationState]);
@@ -58,7 +53,7 @@ export const Products = ({
         {products.items.map((item: IProduct) => (
           <Product key={item.id}>
             <Circle />
-            <Image src={item.img} />
+            <Image src={window.location.origin + item.img} />
             <Info>
               <Icon>
                 <ShoppingCartOutlined />

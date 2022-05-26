@@ -1,4 +1,4 @@
-import { IFetchProductListParams } from '../../components/products/services';
+import { IFetchProductListParams } from '../../components/products/data';
 
 export const HOMEPAGE_CATEGORY = 'homepage';
 
