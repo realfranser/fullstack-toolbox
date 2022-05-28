@@ -43,7 +43,7 @@ var ProductListByCategoryMocks = []ProductListMock{
 				PageIndex: tools.DEFAULT_PAGE_INDEX,
 			},
 		},
-		Response: models.ProductList{
+		Response: models.ProductListResponse{
 			Items: helpers.GenerateProductList(tools.DEFAULT_PAGE_SIZE, tools.DEFAULT_OFFSET, ProductCategories[0]),
 			Pagination: tools.PaginationResponse{
 				PageCount: uint(PRODUCTS_BY_CATEGORY/tools.DEFAULT_PAGE_SIZE),
