@@ -49,6 +49,7 @@ export const ProductList = () => {
       return;
     }
 
+    console.log(`This is the new params: ${e.currentTarget.value}`);
     setProductListParams({
       ...productListParams,
       [e.currentTarget.name]: e.currentTarget.value,

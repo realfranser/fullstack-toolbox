@@ -28,7 +28,8 @@ export const Language = styled.span`
 `;
 
 export const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
+  border: 0.2px solid lightgray;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   padding: 5px;
@@ -36,6 +37,9 @@ export const SearchContainer = styled.div`
 
 export const Input = styled.input`
   border: none;
+  outline: none;
+  height: 25px;
+  font-size: 22px;
   ${mobile({ width: '50px' })}
 `;
 

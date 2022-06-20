@@ -28,7 +28,7 @@ export const Info = styled.div`
 export const Product = styled.div`
   flex: 1;
   margin: 5px;
-  min-width: 280px;
+  min-width: 380px;
   height: 350px;
   display: flex;
   align-items: center;
