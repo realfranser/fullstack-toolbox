@@ -1,0 +1,31 @@
+{
+  "name": "first-terraform-project",
+  "version": "1.0.0",
+  "description": "Learning terraform with AWS and Docker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec node_modules/.bin/babel-node src/index.js",
+    "build": "babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realfranser/first-terraform-project.git"
+  },
+  "author": "realfranser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/realfranser/first-terraform-project/issues"
+  },
+  "homepage": "https://github.com/realfranser/first-terraform-project#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.0",
+    "@babel/node": "^7.18.10",
+    "@babel/preset-env": "^7.19.0",
+    "nodemon": "^2.0.19"
+  }
+}

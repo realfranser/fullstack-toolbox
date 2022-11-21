@@ -7,7 +7,10 @@ export const Categories = () => {
     <Container>
       {categoryList.items.map((item: ICategory) => (
         <CategoryItem key={item.id}>
-          <Link to="products" state={{ category: `${item.category}` }}>
+          <Link
+            to={`products/${item.category}`}
+            state={{ category: `${item.category}` }}
+          >
             <Image src={item.img} />
             <Info>
               <Title>{item.title}</Title>

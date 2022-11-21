@@ -7,7 +7,6 @@ import {
   Center,
   Container,
   Input,
-  Language,
   Left,
   Logo,
   MenuItem,
@@ -23,22 +22,34 @@ const { buttonFont } = colors;
 export const Navbar = () => {
   const quantity = useSelector((state: RootState) => state.cart.quantity);
 
+  const value = 'summer';
+
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
           <SearchContainer>
-            <Input />
-            <Search style={{ color: buttonFont, fontSize: 16 }} />
+            <Input type="text" />
+            <a
+              href={`/products/${value}`}
+              style={{ all: 'unset', cursor: 'pointer' }}
+            >
+              <Search style={{ color: buttonFont, fontSize: 26 }} />
+            </a>
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Toolbox</Logo>
+          <a href="/" style={{ all: 'unset', cursor: 'pointer' }}>
+            <Logo>Toolbox</Logo>
+          </a>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <Link to="/register" style={{ all: 'unset', cursor: 'pointer' }}>
+            <MenuItem>REGISTER</MenuItem>
+          </Link>
+          <Link to="/login" style={{ all: 'unset', cursor: 'pointer' }}>
+            <MenuItem>SIGN IN</MenuItem>
+          </Link>
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

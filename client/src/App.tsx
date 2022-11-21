@@ -20,7 +20,7 @@ const App = () => {
         {/*TODO: Change true to user (from redux*/}
         <Route
           path="register"
-          element={true ? <Navigate to="/" /> : <Register />}
+          element={false ? <Navigate to="/" /> : <Register />}
         />
       </Routes>
     </Router>

@@ -1,0 +1,6 @@
+region              = "us-east-1"
+availability_zone   = "us-east-1a"
+default_route       = "0.0.0.0/0"
+amazon_linux_ami    = "ami-05fa00d4c63e32376"
+ubuntu_ami          = "ami-052efd3df9dad4825"
+docker_install_path = "../conf/scripts/docker_install.sh"

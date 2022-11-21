@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { Announcement, Footer, Navbar, Newsletter } from '../../components';
 import { addProduct } from '../../redux/cartRedux';
-import { DEFAULT_PRODUCT_ID, DEFAULT_PRODUCT, IProduct } from './data';
+import { DEFAULT_PRODUCT_ID, IProduct, getProduct } from './data';
 import { fetchProduct } from './services';
 import {
   AddContainer,
@@ -40,7 +40,7 @@ export const Product = () => {
   const productId = parseInt(id);
   const defaultProductOptions = { amount: 1 };
 
-  const [product, setProduct] = useState<IProduct>(DEFAULT_PRODUCT);
+  const [product, setProduct] = useState<IProduct>(getProduct(productId));
   const [options, setOptions] = useState<ProductOptions>(defaultProductOptions);
   const dispatch = useDispatch();
 

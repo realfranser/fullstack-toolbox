@@ -16,13 +16,8 @@ import {
   Image,
 } from './styles';
 import { usePagination } from '../shared/pagination';
-import { fetchProductList } from './services';
-import {
-  DEFAULT_PRODUCT_LIST,
-  IFetchProductListParams,
-  IProduct,
-  IProductList,
-} from './data';
+import { mockFetchProductList } from './services';
+import { IFetchProductListParams, IProduct, IProductList } from './data';
 
 export const Products = ({
   props,
@@ -31,20 +26,29 @@ export const Products = ({
   props: IFetchProductListParams;
   category: string;
 }) => {
-  const [products, setProducts] = useState<IProductList>(DEFAULT_PRODUCT_LIST);
+  const [products, setProducts] = useState<IProductList>(
+    mockFetchProductList(props, category, props.pagination.pageIndex)
+  );
   const { renderPagination, paginationState } = usePagination(
     products.pagination
   );
 
   useEffect(() => {
+    /*
     fetchProductList(props, category)
       .then((productList) => {
         setProducts(productList);
       })
       .catch(() => {
         setProducts(DEFAULT_PRODUCT_LIST);
-        alert('Error getting all the products');
       });
+      */
+    const prods = mockFetchProductList(
+      props,
+      category,
+      paginationState.pageIndex
+    );
+    setProducts(prods);
   }, [props, category, paginationState]);
 
   return (
@@ -53,7 +57,7 @@ export const Products = ({
         {products.items.map((item: IProduct) => (
           <Product key={item.id}>
             <Circle />
-            <Image src={window.location.origin + item.img} />
+            <Image src={item.img} />
             <Info>
               <Icon>
                 <ShoppingCartOutlined />
