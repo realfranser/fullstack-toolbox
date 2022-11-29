@@ -1,31 +1,28 @@
-# First terraform project
+# Fullstack Toolbox
 
-Learning terraform with AWS
+<img src="https://uploads-ssl.webflow.com/5eb71e52042e740ad80cc406/5ebd8365cfa4cb336bc66917_webtools%20health.png" alt="Fullstack Toolbox" style="position: center;"/>
 
-## Sources
-
-### freecodecamp.org
-
-[YT video](https://www.youtube.com/watch?v=SLB_c_ayRMo&t=6859s&ab_channel=freeCodeCamp.org)
-
-Status: completed :heavy_check_mark:
-
-### AWS tip, Pyae Phyoe Shein
-
-> Docker inside EC2 instance with terraform
-> Cool variable definition and usage
-
-[Blog post](https://awstip.com/to-set-up-docker-container-inside-ec2-instance-with-terraform-3af5d53e54ba)
-
-### NGINX installation
-
-> Usage of S3 buckets for config files
-> Script for installation
-
-[Blog post](https://alexopensource.wordpress.com/2021/06/05/automating-installation-of-nginx-on-ec2-instances)
-[Bucket setup](https://github.com/hashicorp/terraform-provider-aws/issues/23447)
-
-### Cloud init
-
-Combining multiple installation scripts with _template_cloudinit_config_
-Source: https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/cloudinit_config
+This is a fullstack *template* that allows to create a fast MVP for any web
+application project.
+The front-end is built with Typescript+React, the api is built with
+Typescript+Express and the backend will use Golang using a microservices
+architecture.
+## Front
+TS + React
+## Api
+Conects the frontend with all the services, ensures security, verification and
+makes api calls to other online services
+TS + Express
+## Back
+Golang (might consider some services with Python Flask/Django or Express)
+## Databases
+MySQL
+## Services
+> Payment: Stripe
+> Comunication: Twilio
+> Login: Google/Facebook/Twitter autentication
+## Endpoints
+All the endpoints used to make this porject work are available on this [Postman
+workspace](https://fullstack-toolbox.postman.co/workspace/d8400c79-46c8-4891-b394-02cf979c794e)
+## Documentation
+Manage multi project structure in single project: https://github.com/changesets/changesets/blob/main/docs/common-questions.md
