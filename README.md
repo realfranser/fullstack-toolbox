@@ -1,7 +1,5 @@
 # Fullstack Toolbox
 
-Transition your business to the digital world
-
 <img src="https://uploads-ssl.webflow.com/5eb71e52042e740ad80cc406/5ebd8365cfa4cb336bc66917_webtools%20health.png" alt="Fullstack Toolbox" style="position: center;"/>
 
 This is a fullstack *template* that allows to create a fast MVP for any web
