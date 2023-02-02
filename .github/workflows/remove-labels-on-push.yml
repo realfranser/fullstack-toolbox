@@ -1,6 +1,6 @@
 name: Remove Labels
 
-on: [push]
+on: push
 
 jobs:
   remove_labels:
