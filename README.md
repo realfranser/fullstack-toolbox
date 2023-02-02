@@ -1,6 +1,6 @@
 # Fullstack Toolbox
 
-REMOVE GODDAMIT
+REMOVE GODDAMIT NOT YET THOUGH
 
 <img src="https://uploads-ssl.webflow.com/5eb71e52042e740ad80cc406/5ebd8365cfa4cb336bc66917_webtools%20health.png" alt="Fullstack Toolbox" style="position: center;"/>
 
