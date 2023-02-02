@@ -1,0 +1,15 @@
+name: Enforce PR labels
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, edited, synchronize]
+jobs:
+  enforce-label:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: yogevbd/enforce-label-action@2.1.0
+      with:
+        REQUIRED_LABELS_ALL: "load-test-passed,smoke-test-passed"
+        REQUIRED_LABELS_ALL_DESCRIPTION: "Labels required before merging: ['load-test-passed','smoke-test-passed']"
+        BANNED_LABELS: "load-test-failed,smoke-test-failed"
+        BANNED_LABELS_DESCRIPTION: "Labels that must not be triggered before merging: ['load-test-failed,smoke-test-failed']"
